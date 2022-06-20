@@ -2,7 +2,7 @@
 name=JAXA Earth API Plugin
 qgisMinimumVersion=3.0
 about=QGIS Plugin for JAXA Earth API
-description=QGIS Plugin for JAXA Earth API. Easily load datasets via JAXA Earth API.
+description=QGIS Plugin for JAXA Earth API, easily get satellite datasets.
 version=1.0
 
 #Plugin main icon
@@ -10,8 +10,8 @@ icon=imgs/icon.png
 
 author=MIERUNE Inc.
 email=info@mierune.co.jp
-homepage=
-tracker=
-repository=
-tags=
-category=
+homepage=https://github.com/MIERUNE/qgis-jaxa-earth-plugin
+tracker=https://github.com/MIERUNE/qgis-jaxa-earth-plugin/issues
+repository=https://github.com/MIERUNE/qgis-jaxa-earth-plugin
+tags=python, satellite, jaxa, stac, raster, cog
+category=satellite
