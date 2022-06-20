@@ -15,5 +15,6 @@ QGIS Plugin for JAXA Earth API
     1. you can select date-range (Earth API seems to be currently available in 2021 only)
     - <img src='./imgs/03.jpg'>  
 
-** Note **
+
+** note **
 This plugin is not related [JAXA](https://www.jaxa.jp/). It is just using [JAXA Earth API for Python](https://data.earth.jaxa.jp/api/python/index.html) distributed by JAXA. JAXA Earth API for Python is Prototype so that this plugin is also Prototype.
