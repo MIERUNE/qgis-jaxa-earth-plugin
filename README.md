@@ -1,3 +1,3 @@
-# qgis-plugin-template
+# JAXA Earth API Plugin
 
-QGIS3.x プラグイン開発のひな形
+QGIS Plugin for JAXA Earth API

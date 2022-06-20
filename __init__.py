@@ -14,5 +14,6 @@
 
 
 def classFactory(iface):
-    from .sample import Sample
-    return Sample(iface)
+    from .jaxaEarthApiPlugin import JaxaEarthApiPlugin
+
+    return JaxaEarthApiPlugin(iface)
