@@ -6,7 +6,7 @@ import numpy as np
 #----------------------------------------------------------------------------------------
 # get_latlon_pos : Calculate lat,lon range, pixel location range
 #----------------------------------------------------------------------------------------
-def get_latlon_pos(ifd,geoj,imgsize,proj_params):
+def get_latlon_pos(ifd,geoj,imgsize,proj_params,loffset):
 
     # lat,lon range (ifd level 0)
     latlimp = [ifd[0]["ModelTiepointTag"  ][4]-\
@@ -15,6 +15,9 @@ def get_latlon_pos(ifd,geoj,imgsize,proj_params):
     lonlimp = [ifd[0]["ModelTiepointTag"  ][3],\
                ifd[0]["ModelTiepointTag"  ][3]+\
                ifd[0]["ModelPixelScaleTag"][0]*ifd[0]["ImageWidth" ][0]]
+
+    # Add lon offset
+    lonlimp = [lonlimp[0]+loffset,lonlimp[1]+loffset]
 
     # Set Pixel's Unit
     unit = proj_params.unit

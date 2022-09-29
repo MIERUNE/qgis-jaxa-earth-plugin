@@ -14,7 +14,7 @@ class ColorInfo:
     # ----------------------------------------------------------------------------
     # Constructor
     # ----------------------------------------------------------------------------
-    def __init__(self,pint,roles,vinfo):
+    def __init__(self,pint,roles,vinfo,nodata):
 
         # Set cmin, cmax
         
@@ -35,11 +35,12 @@ class ColorInfo:
             ctype = "linear"
 
         # Output
-        self.unit   = vinfo["unit"]
-        self._ctype = ctype                
-        self._pint  = pint
-        self._roles = roles
-        self._vinfo = vinfo
+        self.unit    = vinfo["unit"]
+        self._nodata = nodata
+        self._ctype  = ctype                
+        self._pint   = pint
+        self._roles  = roles
+        self._vinfo  = vinfo
 
     # ----------------------------------------------------------------------------
     # set_clim : Set colormap params
@@ -89,7 +90,9 @@ class ColorInfo:
         if self._ctype == "exact":
             cmap_params = {"name":"default in tif",
                            "type":self._ctype,
-                           "labels":self._vinfo["labels"]}
+                           "labels":self._vinfo["labels"],
+                           "lnames":self._vinfo["lnames"],
+                           "nodata":self._nodata}
 
         # Set values colors
         elif self._ctype == "linear":
@@ -102,7 +105,8 @@ class ColorInfo:
         else:
             cmap_params = {"name":None,
                            "type":None,
-                           "colors":None}
+                           "colors":None,
+                           "nodata":self._nodata}
 
         # Set self
         self.cmap_params = cmap_params
@@ -127,8 +131,8 @@ class ColorInfo:
             pcode  = []
             pvalue = []
             for i in range(len(tmp)):
-                pcode.append( tmp[i]["color"])
-                pvalue.append(tmp[i]["value"])
+                pcode.append( tmp[i][self._vinfo["lnames"]["color"]])
+                pvalue.append(tmp[i][self._vinfo["lnames"]["value"]])
 
             # Generate colormap
             cmap = mpl.colors.ListedColormap(pcode)

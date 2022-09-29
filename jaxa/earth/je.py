@@ -32,7 +32,7 @@
         geoj = je.FeatureCollection().read(geoj_path).select([])
         
         # Get images
-        data_out = je.ImageCollection("JAXA.EORC_ALOS.PRISM_AW3D30.v2012_global")\\
+        data_out = je.ImageCollection("JAXA.EORC_ALOS.PRISM_AW3D30.v3.2_global")\\
                      .filter_date(["2021-01-01T00:00:00","2022-01-01T00:00:00"])\\
                      .filter_resolution(20)\\
                      .filter_bounds(geoj[0])\\
@@ -286,7 +286,7 @@ class ImageCollection:
 
     Args:
         collection (str): Selected collection's name. If no input, 
-            "JAXA.EORC_ALOS.PRISM_AW3D30.v2012_global" will be used.
+            "JAXA.EORC_ALOS.PRISM_AW3D30.v3.2_global" will be used.
         ssl_verify (bool): Users can set valid ssl certification process to ``True``
             or ``False``. The default is ``True``.
 
@@ -321,7 +321,7 @@ class ImageCollection:
     .. code-block:: python
     
         # Usage example: Get image
-        data_out = je.ImageCollection("JAXA.EORC_ALOS.PRISM_AW3D30.v2012_global")\\
+        data_out = je.ImageCollection("JAXA.EORC_ALOS.PRISM_AW3D30.v3.2_global")\\
                      .filter_date(["2021-01-01T00:00:00","2023-01-31T00:00:00"])\\
                      .filter_resolution(20)\\
                      .filter_bounds([-180,-90,180,90])\\
@@ -522,14 +522,15 @@ class ImageCollection:
         bbox,geoj = set_bbox_geojson(bbox, geoj, self.proj_params)
 
         # Detect multi-dates bounds cog's URL
-        stac_bounds_url = select_multiple_dates_bounds_url(self,bbox)
+        stac_bounds_url,lon_offsets = select_multiple_dates_bounds_url(self,bbox)
 
         # Check output/display status
-        CheckImageCollection.Bounds.output(stac_bounds_url,bbox)          
+        CheckImageCollection.Bounds.output(stac_bounds_url,bbox)
 
         # Set and get catalog information
         self.stac_bounds = Stac(self._session).set_query(geoj)\
                                               .set_url(stac_bounds_url)\
+                                              .set_lon_offsets(lon_offsets)\
                                               .set_json()   
 
         # Return
@@ -1050,6 +1051,7 @@ class ImageProcess:
 
         # Output
         return qgs_layers
+
 
     # ----------------------------------------------------------------------------
     # show_spatial_stats: Show spatial statistics

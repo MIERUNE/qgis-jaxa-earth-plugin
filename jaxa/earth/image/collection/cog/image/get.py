@@ -11,7 +11,7 @@ from .raster  import Raster
 #----------------------------------------------------------------------------------------
 # get_single_raster : Read single COG image
 #----------------------------------------------------------------------------------------
-def get_single_raster(session,fname,geoj,ifd,roles,r_params,proj_params):
+def get_single_raster(session,fname,loff,geoj,ifd,roles,r_params,proj_params):
 
     # Get ifd parameters
     toffset = np.array( ifd[-1]["TileOffsets"   ])
@@ -26,7 +26,7 @@ def get_single_raster(session,fname,geoj,ifd,roles,r_params,proj_params):
     byte_pad = calc_padding(toffset,tcounts)
 
     # Calclate lat,lon,pixel roi range of image
-    latlim,lonlim,latpix,lonpix,ppu = get_latlon_pos(ifd,geoj,imgsize,proj_params)
+    latlim,lonlim,latpix,lonpix,ppu = get_latlon_pos(ifd,geoj,imgsize,proj_params,loff)
 
     # Calclate parameters about tiles
     tpos_x,tpos_y,tidx,gidx = get_tiles_pos(latpix,lonpix,imgsize,tsize)
@@ -58,7 +58,7 @@ def get_single_raster(session,fname,geoj,ifd,roles,r_params,proj_params):
         # Convert color map
         cmap_tmp = conv_cmap(ifd[-1]["ColorMap"])
 
-        # Paletted RGB image, no color map
+        # Paletted RGB image (visual), no color map
         if roles != "data":
             img = apply_palette(img,cmap_tmp)
 

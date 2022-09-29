@@ -139,8 +139,7 @@ def set_bbox_qgis(epsg):
 
     # Transform crs to EPSG4326
     source_crs = qgis.utils.iface.mapCanvas().mapSettings().destinationCrs()
-    dest_crs   = QgsCoordinateReferenceSystem()
-    dest_crs.createFromSrid(epsg)
+    dest_crs   = QgsCoordinateReferenceSystem().fromEpsgId(epsg)
     rtrans     = QgsCoordinateTransform(source_crs,dest_crs,QgsProject.instance())
     extent_out = rtrans.transformBoundingBox(extent)
 

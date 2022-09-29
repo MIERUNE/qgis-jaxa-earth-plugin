@@ -99,7 +99,7 @@ class CheckImageCollection:
         def output(output1,output2):
 
             # Display status
-            print(f"{output1.unit} {output1.unit_str} per {output2} pixels")        
+            print(f"{output2} pixels per {output1.unit} {output1.unit_str} ")        
 
             # Finish
             return 1
