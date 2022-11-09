@@ -3,7 +3,7 @@ name=JAXA Earth API Plugin
 qgisMinimumVersion=3.0
 about=QGIS Plugin for JAXA Earth API
 description=QGIS Plugin for JAXA Earth API, easily get satellite datasets.
-version=1.1
+version=1.2
 
 #Plugin main icon
 icon=imgs/icon.png
