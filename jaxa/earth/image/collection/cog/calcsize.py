@@ -6,7 +6,7 @@ import numpy as np
 #----------------------------------------------------------------------------------------
 # calcsize : Calculate cog image size, and throw error if too large size
 #----------------------------------------------------------------------------------------
-def calc_img_size(feat_cogs,feat_query,ifd_ppu,img_ppu,PIX_NUM_MAX,proj_params):
+def calc_img_size(feat_cogs,feat_query,ifd_ppu,img_ppu,PIX_NUM_MAX,proj_params,loffsets):
 
     # Check ppu (request ppu vs cog ppu)
     if abs(ifd_ppu-img_ppu) < 1:
@@ -23,7 +23,7 @@ def calc_img_size(feat_cogs,feat_query,ifd_ppu,img_ppu,PIX_NUM_MAX,proj_params):
     res      = unit/selected_ppu
 
     # Calclate all COG's bbox's lat, lon
-    lat,lon,bbox_each = calc_all_latlon(feat_cogs,res,decimals)
+    lat,lon,bbox_each = calc_all_latlon(feat_cogs,res,decimals,loffsets)
 
     # Calc query area's pixels position
     imgsize_all, pix_x, pix_y = calc_pix_pos(feat_query,lat,lon,bbox_each)
@@ -66,12 +66,15 @@ def calc_pix_pos(feat_query,lat,lon,bbox_each):
 #----------------------------------------------------------------------------------------
 # calc_all_latlon : Calc all lat, lon of cogs
 #----------------------------------------------------------------------------------------
-def calc_all_latlon(feat_cogs,res,decimals):
+def calc_all_latlon(feat_cogs,res,decimals,loffsets):
 
     bbox_each = []
     for i in range(len(feat_cogs)):
         for j in range(len(feat_cogs[i])):
-            bbox_each.append(feat_cogs[i][j]["bbox"])
+            bbox_tmp = feat_cogs[i][j]["bbox"]
+            bbox_tmp = [bbox_tmp[0]+loffsets[i][j],bbox_tmp[1],
+                        bbox_tmp[2]+loffsets[i][j],bbox_tmp[3]]
+            bbox_each.append(bbox_tmp)
     bbox_each = np.array(bbox_each)
     bbox_all  = [min(bbox_each[:,0]),min(bbox_each[:,1]),
                  max(bbox_each[:,2]),max(bbox_each[:,3])]

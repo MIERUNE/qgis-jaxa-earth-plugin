@@ -2,6 +2,7 @@
 # Load module
 # --------------------------------------------------------------------------------
 from ....utils import get
+from urllib.parse import urljoin
 
 # --------------------------------------------------------------------------------
 # Stac ： stac information class
@@ -20,6 +21,11 @@ class Stac:
     # Set URL
     def set_url(self,url):
         self.url = url
+        return self
+
+    # Set lon offsets
+    def set_lon_offsets(self,offsets):
+        self.lon_offsets = offsets
         return self
 
     # Set ID
@@ -66,7 +72,13 @@ class Stac:
             cog_tmp0 = []
             for j in range(len(self.json[i])):
                 try:
+                    # Get url
                     tmp = self.json[i][j]["assets"][band]["href"]
+
+                    # if relative, set https:// 
+                    if not ("https://" in tmp):
+                        tmp = urljoin(self.url[i][j],tmp)
+
                 except:
                     raise Exception(f"Error! {band} was not exist in assets !")
                 cog_tmp0.append(tmp)

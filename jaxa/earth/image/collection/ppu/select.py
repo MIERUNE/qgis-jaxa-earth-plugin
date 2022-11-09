@@ -35,6 +35,8 @@ def select_ppu_params(ppu,summaries):
     # Get projection number, parameter
     if "proj:epsg" in summaries:
         proj = summaries["proj:epsg"]
+    elif "je:epsg" in summaries:
+        proj = summaries["je:epsg"][0]
     else:
         proj = Projections().epsg
     proj_params = Projections(proj)
@@ -50,7 +52,14 @@ def select_ppu_params(ppu,summaries):
 
     # Set PPUMAX
     if "je:ppu_max" in summaries:
-        ppu_max = summaries["je:ppu_max"]
+        ppu_max_raw = summaries["je:ppu_max"]
+        
+        # Detect date format type
+        if   type(ppu_max_raw) == list:
+            ppu_max = ppu_max_raw[0]
+        elif (type(ppu_max_raw) == int) or (type(ppu_max_raw) == float) :
+            ppu_max = ppu_max_raw
+
     else:
         ppu_max = proj_params.ppu_max_default
 

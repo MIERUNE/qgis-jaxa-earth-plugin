@@ -119,7 +119,7 @@ def show_image_qgis(id,date_id,img,latlim,lonlim,cinfo,proj):
     
     # Check type and throw error if None type
     if raster is None:
-        print("path : "+data_path)
+        print("path : " + data_path)
         raise Exception("Error! please check the inputed file path and permission to write/read!")
 
     # Set Transform
