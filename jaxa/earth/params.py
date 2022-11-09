@@ -7,10 +7,10 @@ class Settings:
     ssl_verify = True
 
     # STAC URL (COG)
-    stac_cog_url = "https://data.earth.jaxa.jp/stac/v1_1/cog/catalog.json"
+    stac_cog_url = "https://data.earth.jaxa.jp/stac/cog/v1/catalog.json"
 
     # Parameters about collection
-    col_default  = "JAXA.EORC_ALOS.PRISM_AW3D30.v2012_global"
+    col_default  = "JAXA.EORC_ALOS.PRISM_AW3D30.v3.2_global"
 
     # Parameters about date
     dlim_default = ["2021-01-01T00:00:00",

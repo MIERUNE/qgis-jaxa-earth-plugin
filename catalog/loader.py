@@ -1,12 +1,14 @@
 import requests
+import json
 
-STAC_CATALOG_URL = "https://s3.twofive.rstorcloud.io/je-stac/v1_1/cog/catalog.json"
+STAC_CATALOG_URL = "https://data.earth.jaxa.jp/stac/cog/v1/catalog.json"
 
 
 def get_catalog() -> dict:
     """
-    unused
+    unused in plugin
     this method needs too long time to run everytime on launch plugin
+    run when build this plugin and make dictionary with output of this script
     """
     catalog = {}
 
@@ -28,3 +30,9 @@ def get_catalog() -> dict:
         }
 
     return catalog
+
+
+if __name__ == "__main__":
+    catalog = get_catalog()
+    with open('./catalog.json', mode='w') as f:
+        json.dump(catalog, f, ensure_ascii=False)

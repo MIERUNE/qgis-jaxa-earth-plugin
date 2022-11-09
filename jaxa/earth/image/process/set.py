@@ -28,7 +28,7 @@ def cmap_qgis(img,cinfo,layer):
 
     # (1) Land cover data
     if cinfo.cmap_params["type"] == "exact":
-        cmap_qgis_category(cinfo.cmap_params["labels"],layer)
+        cmap_qgis_category(cinfo,layer)
         return 1
 
     # (2) Other physical data (Set cmin,cmax with +-2 sigma)
@@ -78,19 +78,35 @@ def cmap_qgis_data(cinfo,layer):
 #----------------------------------------------------------------------------------------
 # cmap_qgis_category
 #----------------------------------------------------------------------------------------
-def cmap_qgis_category(labels,layer):
+def cmap_qgis_category(cinfo,layer):
 
     # Load module
     from qgis.core import QgsPalettedRasterRenderer
-    from qgis.PyQt.QtGui import QColor        
+    from qgis.PyQt.QtGui import QColor    
+
+    # Set labels
+    labels = cinfo.cmap_params["labels"]
+    lnames = cinfo.cmap_params["lnames"]
+    nodata = cinfo.cmap_params["nodata"]
 
     # Generate value, color, label list
     lst  = []
     for i in range(len(labels)):
-        lst.append(QgsPalettedRasterRenderer.Class(labels[i]["value"],QColor(labels[i]["color"]),str(labels[i]["value"])+" : "+labels[i]["name"]))
+
+        # Set parameters
+        value = labels[i][lnames["value"]]
+        color = QColor(labels[i][lnames["color"]])
+        label = str(labels[i][lnames["value"]])+" : "+labels[i][lnames["name"]]        
+
+        # Set color label list (ignore nodata)
+        if value != nodata:
+            lst.append(QgsPalettedRasterRenderer.Class(value,color,label))
 
     # Set renderer
-    renderer = QgsPalettedRasterRenderer(layer.dataProvider(), 1, lst)
+    renderer = QgsPalettedRasterRenderer(
+        layer.dataProvider(), # QgsRasterInterface
+        1,                    # bandNumber
+        lst)                  # classes:Iterable
     layer.setRenderer(renderer)
 
     # Finish

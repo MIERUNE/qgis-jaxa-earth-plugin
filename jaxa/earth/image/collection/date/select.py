@@ -11,12 +11,17 @@ from ..stac.select import get_all_children
 #--------------------------------------------------------------------------------
 def select_multiple_dates_url(input,date):
 
-
     # Get STAC URL of date
     stac_date_url_all = get_all_children(input._session, "child", input.stac_collection.url[0][0], input.stac_collection.json[0][0])
 
     # Detect STAC Date format and depth
-    date_format = input.stac_collection.json[0][0]["summaries"]["je:stac_date_format"]
+    date_format_raw = input.stac_collection.json[0][0]["summaries"]["je:stac_date_format"]
+    
+    # Detect date format type
+    if   type(date_format_raw) == list:
+        date_format = date_format_raw[0]
+    elif type(date_format_raw) == str :
+        date_format = date_format_raw
 
     # Detect Appropriate Date Catalog URL
     stac_date_url, stac_date_id = select_date(input._session, stac_date_url_all, date_format, date)
