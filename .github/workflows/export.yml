@@ -17,9 +17,12 @@ jobs:
       env:
         TZ: 'Asia/Tokyo' # タイムゾーン指定
       run: echo "CURRENT_DATETIME=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+    - name: debug
+      run: |
+        find . -type f | grep -ve './.git' -ve './.vscode' -ve '__pycache__/' -ve 'imgs/' | xargs -I src echo src
     - name: Create Plugin Directory
       run: |
-        find . -type f | grep -ve './.git' -ve './.vscode' -ve '__pycache__/' | xargs -I src rsync -R src qgis-jaxa-earth-plugin-master
+        find . -type f | grep -ve './.git' -ve './.vscode' -ve '__pycache__/' -ve 'imgs/' | xargs -I src rsync -R src qgis-jaxa-earth-plugin-master
     - name: Create Archive
       run: |
         zip -r qgis-jaxa-earth-plugin-master.zip ./qgis-jaxa-earth-plugin-master
