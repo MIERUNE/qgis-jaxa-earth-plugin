@@ -11,9 +11,12 @@ def get_catalog() -> dict:
     run when build this plugin and make dictionary with output of this script
     """
     catalog = {}
-
+    
+    #
     res = requests.get(STAC_CATALOG_URL)
     res_json = res.json()
+    # print(res_json)  #add
+    
     children = list(filter(lambda d: d["rel"] == "child", res_json.get("links", [])))
     for child in children:
         res_child = requests.get(child["href"])
@@ -23,12 +26,14 @@ def get_catalog() -> dict:
         dataset_title = res_child_json["title"]
         dataset_bands = list(res_child_json["assets"].keys())
         dataset_keywords = res_child_json["keywords"]
+        dataset_bbox  = res_child_json["extent"]["spatial"]["bbox"] # +["bbox"][0]必要？
+
         catalog[dataset_id] = {
             "title": dataset_title,
             "bands": dataset_bands,
             "keywords": dataset_keywords,
+            "bbox": dataset_bbox
         }
-
     return catalog
 
 
