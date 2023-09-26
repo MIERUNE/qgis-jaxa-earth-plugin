@@ -11,7 +11,6 @@
         license              : GNU General Public License v2.0
  ***************************************************************************/
 """
-
 import os
 
 # QGIS-API
@@ -26,6 +25,7 @@ from qgis.gui import *
 from .jaxa.earth import je
 from .catalog import CATALOG
 
+
 # uiファイルの定義と同じクラスを継承する
 class JaxaEarthApiDockWidget(QDockWidget):
     closingPlugin = pyqtSignal()
@@ -33,18 +33,64 @@ class JaxaEarthApiDockWidget(QDockWidget):
     def __init__(self):
         super().__init__()
         self.ui = uic.loadUi(
-            os.path.join(os.path.dirname(__file__), "jaxaEarthApiDockWidget.ui"), self
+            os.path.join(os.path.dirname(__file__),
+                         "jaxaEarthApiDockWidget.ui"), self
         )
 
         self.init_gui()
 
-    def init_gui(self):
-        self.datasetCombobox.addItem(self.tr("Select Dataset", None))
-        self.bandCombobox.addItem(self.tr("Select Band", None))
+    def classify_datasets(self):
+        classes = {
+            "globe": [],
+            "local": [],
+            "unknown": []
+        }
 
         for dataset_name, dataset_info in CATALOG.items():
+            bbox = dataset_info["bbox"][0]
+            logitude_W = int(bbox[0])
+            logitude_E = int(bbox[2])
+            logitude = [logitude_W, logitude_E]
+
+            _dataset_info = {
+                **dataset_info,
+                "key": dataset_name
+            }
+
+            if logitude == [-180, 180]:
+                classes["globe"].append(_dataset_info)
+            elif -180 < logitude_W < 180:
+                classes["local"].append(_dataset_info)
+            else:
+                classes["unknown"].append(_dataset_info)
+
+        return classes
+
+    def init_gui(self):
+        self.bandCombobox.addItem(self.tr("Select Band", None))
+
+        classes = self.classify_datasets()
+
+        # global
+        self.datasetCombobox.addItem(
+            self.tr("-------- Global ------------", None))
+        for dataset in classes["globe"]:
             self.datasetCombobox.addItem(
-                dataset_info["title"], {**dataset_info, "key": dataset_name}
+                dataset["title"], dataset
+            )
+        # local
+        self.datasetCombobox.addItem(
+            self.tr("--------- Local(Japan) ---------", None))
+        for dataset in classes["local"]:
+            self.datasetCombobox.addItem(
+                dataset["title"], dataset
+            )
+        # unknown
+        self.datasetCombobox.addItem(
+            self.tr("----------- Unknown -----------", None))
+        for dataset in classes["unknown"]:
+            self.datasetCombobox.addItem(
+                dataset["title"], dataset
             )
 
         self.datasetCombobox.currentIndexChanged.connect(
