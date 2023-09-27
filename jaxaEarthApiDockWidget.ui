@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>330</width>
-    <height>88</height>
+    <width>380</width>
+    <height>105</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>100</width>
-    <height>88</height>
+    <width>380</width>
+    <height>105</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -79,24 +79,24 @@
         </property>
         <property name="dateTime">
          <datetime>
-          <hour>0</hour>
-          <minute>0</minute>
-          <second>0</second>
-          <year>2021</year>
+          <hour>23</hour>
+          <minute>59</minute>
+          <second>59</second>
+          <year>2000</year>
           <month>1</month>
           <day>1</day>
          </datetime>
         </property>
         <property name="maximumDate">
          <date>
-          <year>2021</year>
+          <year>2099</year>
           <month>12</month>
           <day>31</day>
          </date>
         </property>
         <property name="minimumDate">
          <date>
-          <year>2021</year>
+          <year>2000</year>
           <month>1</month>
           <day>1</day>
          </date>
@@ -129,9 +129,9 @@
         </property>
         <property name="dateTime">
          <datetime>
-          <hour>23</hour>
-          <minute>59</minute>
-          <second>59</second>
+          <hour>0</hour>
+          <minute>0</minute>
+          <second>0</second>
           <year>2021</year>
           <month>12</month>
           <day>31</day>
@@ -142,7 +142,7 @@
           <hour>23</hour>
           <minute>59</minute>
           <second>59</second>
-          <year>2021</year>
+          <year>2099</year>
           <month>12</month>
           <day>31</day>
          </datetime>
@@ -152,21 +152,21 @@
           <hour>0</hour>
           <minute>0</minute>
           <second>0</second>
-          <year>2021</year>
+          <year>2000</year>
           <month>1</month>
           <day>1</day>
          </datetime>
         </property>
         <property name="maximumDate">
          <date>
-          <year>2021</year>
+          <year>2099</year>
           <month>12</month>
           <day>31</day>
          </date>
         </property>
         <property name="minimumDate">
          <date>
-          <year>2021</year>
+          <year>2000</year>
           <month>1</month>
           <day>1</day>
          </date>

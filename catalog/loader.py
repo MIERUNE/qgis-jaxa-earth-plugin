@@ -26,12 +26,14 @@ def get_catalog() -> dict:
         dataset_bands = list(res_child_json["assets"].keys())
         dataset_keywords = res_child_json["keywords"]
         dataset_bbox = res_child_json["extent"]["spatial"]["bbox"]
+        dataset_temporal = res_child_json["extent"]["temporal"]["interval"]
 
         catalog[dataset_id] = {
             "title": dataset_title,
             "bands": dataset_bands,
             "keywords": dataset_keywords,
-            "bbox": dataset_bbox
+            "bbox": dataset_bbox,
+            "temporal": dataset_temporal
         }
     return catalog
 
