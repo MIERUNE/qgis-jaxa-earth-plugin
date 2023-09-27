@@ -147,10 +147,19 @@ class JaxaEarthApiDockWidget(QDockWidget):
             )
             print(e)
             return
-        # print(data.stac_bounds.band_url)
 
         # Process and show an image
         qgs_layers = je.ImageProcess(data).get_qgis_layers()
+
+        for idx, layer in enumerate(qgs_layers):
+            print(layer)
+            layer.temporalProperties().setIsActive(True)
+
+            #  range is temporary.
+            # Need to fix QgsDateTimeRange into proper time range.
+            range = QgsDateTimeRange(QDateTime(1980 + idx, 1, 1, 0, 0, 0),
+                                     QDateTime(1980 + idx, 12, 31, 23, 59, 59))
+            layer.temporalProperties().setFixedTemporalRange(range)
 
         root = QgsProject().instance().layerTreeRoot()
         group_node = root.insertGroup(0, dataset_name)
