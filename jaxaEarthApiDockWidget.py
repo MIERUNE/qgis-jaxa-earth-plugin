@@ -160,7 +160,6 @@ class JaxaEarthApiDockWidget(QDockWidget):
             range = QgsDateTimeRange(QDateTime(1980 + idx, 1, 1, 0, 0, 0),
                                      QDateTime(1980 + idx, 12, 31, 23, 59, 59))
             layer.temporalProperties().setFixedTemporalRange(range)
-            print(range)
 
         root = QgsProject().instance().layerTreeRoot()
         group_node = root.insertGroup(0, dataset_name)
