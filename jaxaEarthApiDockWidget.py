@@ -12,6 +12,7 @@
  ***************************************************************************/
 """
 import os
+import json
 
 # QGIS-API
 from qgis.PyQt import uic
@@ -23,7 +24,9 @@ from qgis.gui import *
 
 # Load module
 from .jaxa.earth import je
-from .catalog import CATALOG
+
+with open(os.path.join(os.path.dirname(__file__), "catalog.json")) as f:
+    CATALOG = json.load(f)
 
 
 # uiファイルの定義と同じクラスを継承する
@@ -121,6 +124,63 @@ class JaxaEarthApiDockWidget(QDockWidget):
         for band in dataset_info.get("bands", []):
             self.bandCombobox.addItem(band, band)
 
+        import datetime
+        current_time = datetime.datetime.now()
+        ct_list = [
+            current_time.year,
+            current_time.month,
+            current_time.day,
+            current_time.hour,
+            current_time.minute,
+            current_time.second
+        ]
+
+        interval_start_time = dataset_info["temporal"][0][0]
+        interval_end_time = dataset_info["temporal"][0][1]  # str
+
+        interval_start_time_obj = datetime.datetime.strptime(
+            interval_start_time, '%Y-%m-%dT%H:%M:%SZ')
+        st_list = [
+            interval_start_time_obj.year,
+            interval_start_time_obj.month,
+            interval_start_time_obj.day,
+            interval_start_time_obj.hour,
+            interval_start_time_obj.minute,
+            interval_start_time_obj.second
+        ]
+
+        self.startDateEdit.setMinimumDateTime(
+            QDateTime(st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5]))
+
+        self.endDateEdit.setMinimumDateTime(
+            QDateTime(st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5]))
+
+        if interval_end_time is None:
+
+            self.startDateEdit.setMaximumDateTime(
+                QDateTime(ct_list[0], ct_list[1], ct_list[2], ct_list[3], ct_list[4], ct_list[5]))
+
+            self.endDateEdit.setMaximumDateTime(
+                QDateTime(ct_list[0], ct_list[1], ct_list[2], ct_list[3], ct_list[4], ct_list[5]))
+
+        else:
+            interval_end_time_obj = datetime.datetime.strptime(
+                interval_end_time, '%Y-%m-%dT%H:%M:%SZ')
+            et_list = [
+                interval_end_time_obj.year,
+                interval_end_time_obj.month,
+                interval_end_time_obj.day,
+                interval_end_time_obj.hour,
+                interval_end_time_obj.minute,
+                interval_end_time_obj.second
+            ]
+
+            self.startDateEdit.setMaximumDateTime(
+                QDateTime(et_list[0], et_list[1], et_list[2], et_list[3], et_list[4], et_list[5]))
+
+            self.endDateEdit.setMaximumDateTime(
+                QDateTime(et_list[0], et_list[1], et_list[2], et_list[3], et_list[4], et_list[5]))
+
     def load_dataset(self):
         dataset_name = self.datasetCombobox.currentData()["key"]
         band = self.bandCombobox.currentData()
@@ -152,7 +212,6 @@ class JaxaEarthApiDockWidget(QDockWidget):
         qgs_layers = je.ImageProcess(data).get_qgis_layers()
 
         for idx, layer in enumerate(qgs_layers):
-            print(layer)
             layer.temporalProperties().setIsActive(True)
 
             #  range is temporary.
