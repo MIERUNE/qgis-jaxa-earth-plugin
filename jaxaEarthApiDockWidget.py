@@ -145,13 +145,13 @@ class JaxaEarthApiDockWidget(QDockWidget):
         # dataset_info["temporal"] = [["1980-1-31T12:34:56Z", "1980-12-31T12:34:56Z"]]->correct?
         # interval start_time, end_time
         # str　→ error が出てくる。dataset_info.get("temporal", [])なのか？
-        interval_start_time = dataset_info["temporal"]["interval"][0][0]
-        interval_end_time = dataset_info["temporal"]["interval"][0][1]  # str
+        interval_start_time = dataset_info["temporal"][0][0]
+        interval_end_time = dataset_info["temporal"][0][1]  # str
 
         # change interval times info from iso8601 into int within integer
         # make interval_start_time
         interval_start_time_obj = datetime.datetime.strptime(
-            interval_start_time, '%Y-%m-%dT%H:%M:%S')
+            interval_start_time, '%Y-%m-%dT%H:%M:%SZ')
         st_list = [
             interval_start_time_obj.year,
             interval_start_time_obj.month,
@@ -159,17 +159,6 @@ class JaxaEarthApiDockWidget(QDockWidget):
             interval_start_time_obj.hour,
             interval_start_time_obj.minute,
             interval_start_time_obj.second
-        ]
-        #  make interval_end_time
-        interval_end_time_obj = datetime.datetime.strptime(
-            interval_end_time, '%Y-%m-%dT%H:%M:%S')
-        et_list = [
-            interval_end_time_obj.year,
-            interval_end_time_obj.month,
-            interval_end_time_obj.day,
-            interval_end_time_obj.hour,
-            interval_end_time_obj.minute,
-            interval_end_time_obj.second
         ]
 
         ##
@@ -179,7 +168,7 @@ class JaxaEarthApiDockWidget(QDockWidget):
         self.endDateEdit.setMinimumDateTime(
             QDateTime(st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5]))
 
-        if interval_end_time["temporal"][0][1] is None:
+        if interval_end_time is None:
             # 　When end time inside temporal is None
             # ->use current time
             self.startDateEdit.setMaximumDateTime(
@@ -191,6 +180,18 @@ class JaxaEarthApiDockWidget(QDockWidget):
         else:
             # 　When end time inside temporal is available
             # ->use interval_end_time
+            #  make interval_end_time
+            interval_end_time_obj = datetime.datetime.strptime(
+                interval_end_time, '%Y-%m-%dT%H:%M:%SZ')
+            et_list = [
+                interval_end_time_obj.year,
+                interval_end_time_obj.month,
+                interval_end_time_obj.day,
+                interval_end_time_obj.hour,
+                interval_end_time_obj.minute,
+                interval_end_time_obj.second
+            ]
+
             self.startDateEdit.setMaximumDateTime(
                 QDateTime(et_list[0], et_list[1], et_list[2], et_list[3], et_list[4], et_list[5]))
 
