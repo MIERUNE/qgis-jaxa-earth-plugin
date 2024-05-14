@@ -32,6 +32,7 @@ class JaxaEarthApiPlugin:
         self.win = self.iface.mainWindow()
         self.plugin_dir = os.path.dirname(__file__)
         self.actions = []
+        self.icon_path = os.path.join(self.plugin_dir, "imgs", "icon.png")
         self.menu = PLUGIN_NAME
         self.toolbar = self.iface.addToolBar(PLUGIN_NAME)
         self.toolbar.setObjectName(PLUGIN_NAME)
