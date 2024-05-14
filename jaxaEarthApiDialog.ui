@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>jaxaEarthApiDockWidget</class>
- <widget class="QDockWidget" name="jaxaEarthApiDockWidget">
+ <class>Dialog</class>
+ <widget class="QDialog" name="jaxaEarthApiDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -19,7 +19,7 @@
   <property name="windowTitle">
    <string>JAXA Earth API</string>
   </property>
-  <widget class="QWidget" name="dockWidgetContents">
+  <widget class="QWidget" name="DialogContents">
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="3" rowspan="2">
      <widget class="QPushButton" name="loadButton">

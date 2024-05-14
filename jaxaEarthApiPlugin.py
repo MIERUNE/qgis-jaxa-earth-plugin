@@ -21,7 +21,7 @@ from PyQt5.QtWidgets import *
 from qgis.core import *
 from qgis.gui import *
 
-from .jaxaEarthApiDockWidget import JaxaEarthApiDockWidget
+from .jaxaEarthApiDialog import JaxaEarthApiDialog
 
 PLUGIN_NAME = "JAXA Earth Api"
 
@@ -36,7 +36,7 @@ class JaxaEarthApiPlugin:
         self.menu = PLUGIN_NAME
         self.toolbar = self.iface.addToolBar(PLUGIN_NAME)
         self.toolbar.setObjectName(PLUGIN_NAME)
-        self.dockwidget = None
+        self.dialog = None
         self.action = None
 
     def add_action(
@@ -75,15 +75,15 @@ class JaxaEarthApiPlugin:
             parent=self.win,
         )
 
-        self.dockwidget = JaxaEarthApiDockWidget()
-        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockwidget)
+        self.dialog = JaxaEarthApiDialog()
+        # self.iface.addDialog(Qt.RightDialogArea, self.dialog)
 
     def unload(self):
         self.iface.removePluginMenu(PLUGIN_NAME, self.action)
         self.action = None
 
-        self.iface.removeDockWidget(self.dockwidget)
-        self.dockwidget = None
+        self.iface.removeDialog(self.dialog)
+        self.dialog = None
 
     def show_window(self):
-        self.main_window.show()
+        self.dialog.show()
