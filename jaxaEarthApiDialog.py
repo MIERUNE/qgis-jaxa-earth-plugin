@@ -15,6 +15,7 @@
 import os
 import json
 import datetime
+import webbrowser
 
 # QGIS-API
 from qgis.PyQt import uic
@@ -133,6 +134,7 @@ class JaxaEarthApiDialog(QDialog):
         )
 
         self.loadButton.clicked.connect(lambda: self.load_dataset())
+        self.detailsButton.clicked.connect(lambda: self.show_details())
 
         self.datasetCombobox.currentIndexChanged.connect(self.on_dataset_changed)
         self.bandCombobox.currentIndexChanged.connect(self.on_dataset_changed)
@@ -331,6 +333,5 @@ class JaxaEarthApiDialog(QDialog):
 
     def show_details(self):
         dataset_name = self.datasetCombobox.currentData()["key"]
-        details_url = f"https://data.earth.jaxa.jp/en/datasets/#/id/{dataset_name}"
-        print(details_url)
+        webbrowser.open(f"https://data.earth.jaxa.jp/en/datasets/#/id/{dataset_name}")
         return
