@@ -39,8 +39,42 @@ class JaxaEarthApiPlugin:
         self.dockwidget = None
         self.action = None
 
+    def add_action(
+        self,
+        icon_path,
+        text,
+        callback,
+        enabled_flag=True,
+        add_to_menu=True,
+        add_to_toolbar=True,
+        status_tip=None,
+        whats_this=None,
+        parent=None,
+    ):
+        icon = QIcon(icon_path)
+        action = QAction(icon, text, parent)
+        action.triggered.connect(callback)
+        action.setEnabled(enabled_flag)
+        if status_tip is not None:
+            action.setStatusTip(status_tip)
+        if whats_this is not None:
+            action.setWhatsThis(whats_this)
+        if add_to_toolbar:
+            self.toolbar.addAction(action)
+        if add_to_menu:
+            self.iface.addPluginToMenu(self.menu, action)
+        self.actions.append(action)
+        return action
+
     def initGui(self):
         # メニュー設定
+        self.add_action(
+            icon_path=os.path.join(self.plugin_dir, "imgs", "icon.png"),
+            text="JAXA Earth API Plugin",
+            callback=self.show_window,
+            parent=self.win,
+        )
+
         self.dockwidget = JaxaEarthApiDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockwidget)
 
@@ -50,3 +84,6 @@ class JaxaEarthApiPlugin:
 
         self.iface.removeDockWidget(self.dockwidget)
         self.dockwidget = None
+
+    def show_window(self):
+        self.main_window.show()
