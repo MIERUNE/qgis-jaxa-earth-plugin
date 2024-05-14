@@ -76,14 +76,13 @@ class JaxaEarthApiPlugin:
         )
 
         self.dialog = JaxaEarthApiDialog()
-        # self.iface.addDialog(Qt.RightDialogArea, self.dialog)
 
     def unload(self):
         self.iface.removePluginMenu(PLUGIN_NAME, self.action)
+        self.iface.removeToolBarIcon(self.action)
         self.action = None
 
-        self.iface.removeDialog(self.dialog)
-        self.dialog = None
+        del self.toolbar
 
     def show_window(self):
         self.dialog.show()
