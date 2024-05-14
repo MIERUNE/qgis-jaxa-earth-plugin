@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>900</width>
     <height>105</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>800</width>
+    <width>900</width>
     <height>105</height>
    </size>
   </property>
@@ -21,7 +21,7 @@
   </property>
   <widget class="QWidget" name="DialogContents">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="3" rowspan="2">
+    <item row="1" column="4" rowspan="2">
      <widget class="QPushButton" name="loadButton">
       <property name="enabled">
        <bool>false</bool>
@@ -34,6 +34,22 @@
       </property>
       <property name="text">
        <string>Load</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3" rowspan="2">
+     <widget class="QPushButton" name="detailsButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Details</string>
       </property>
      </widget>
     </item>

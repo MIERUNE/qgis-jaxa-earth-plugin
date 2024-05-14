@@ -134,12 +134,12 @@ class JaxaEarthApiDialog(QDialog):
 
         self.loadButton.clicked.connect(lambda: self.load_dataset())
 
-        self.datasetCombobox.currentIndexChanged.connect(
-            lambda: self.loadButton.setEnabled(self.is_executable())
-        )
-        self.bandCombobox.currentIndexChanged.connect(
-            lambda: self.loadButton.setEnabled(self.is_executable())
-        )
+        self.datasetCombobox.currentIndexChanged.connect(self.on_dataset_changed)
+        self.bandCombobox.currentIndexChanged.connect(self.on_dataset_changed)
+
+    def on_dataset_changed(self):
+        self.loadButton.setEnabled(self.is_executable())
+        self.detailsButton.setEnabled(self.is_executable())
 
     def is_executable(self):
         return (
@@ -328,3 +328,9 @@ class JaxaEarthApiDialog(QDialog):
             QgsProject.instance().addMapLayer(layer, False)
             layer_node = group_node.addLayer(layer)
             layer_node.setExpanded(False)
+
+    def show_details(self):
+        dataset_name = self.datasetCombobox.currentData()["key"]
+        details_url = f"https://data.earth.jaxa.jp/en/datasets/#/id/{dataset_name}"
+        print(details_url)
+        return
