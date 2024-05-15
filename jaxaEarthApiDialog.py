@@ -11,6 +11,7 @@
         license              : GNU General Public License v2.0
  ***************************************************************************/
 """
+
 import os
 import json
 import datetime
@@ -78,13 +79,13 @@ def has_yearly_data(data_id: str) -> bool:
 
 
 # uiファイルの定義と同じクラスを継承する
-class JaxaEarthApiDockWidget(QDockWidget):
+class JaxaEarthApiDialog(QDialog):
     closingPlugin = pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.ui = uic.loadUi(
-            os.path.join(os.path.dirname(__file__), "jaxaEarthApiDockWidget.ui"), self
+            os.path.join(os.path.dirname(__file__), "jaxaEarthApiDialog.ui"), self
         )
 
         self.init_gui()
@@ -139,6 +140,8 @@ class JaxaEarthApiDockWidget(QDockWidget):
         self.bandCombobox.currentIndexChanged.connect(
             lambda: self.loadButton.setEnabled(self.is_executable())
         )
+
+        self.adjustSize()
 
     def is_executable(self):
         return (
@@ -256,7 +259,9 @@ class JaxaEarthApiDockWidget(QDockWidget):
             self.startDateEdit.dateTime().secsTo(self.endDateEdit.dateTime())
             > 365 * 24 * 60 * 60
         ):
-            QMessageBox.information(self, "Error", "1年を超える期間を指定することは出来ません。")
+            QMessageBox.information(
+                self, "Error", "1年を超える期間を指定することは出来ません。"
+            )
             return
 
         dataset_name = self.datasetCombobox.currentData()["key"]
