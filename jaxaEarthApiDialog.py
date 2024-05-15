@@ -24,6 +24,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from qgis.core import *
 from qgis.gui import *
+from qgis.utils import iface
 
 # Load module
 from .jaxa.earth import je
@@ -138,6 +139,17 @@ class JaxaEarthApiDialog(QDialog):
 
         self.datasetCombobox.currentIndexChanged.connect(self.on_dataset_changed)
         self.bandCombobox.currentIndexChanged.connect(self.on_dataset_changed)
+
+        # QgsExtentGroupBox
+        self.ui.mExtentGroupBox.setMapCanvas(iface.mapCanvas())
+        self.ui.mExtentGroupBox.setOutputCrs(QgsProject.instance().crs())
+        self.ui.mExtentGroupBox.setOutputExtentFromCurrent()
+        QgsProject.instance().crsChanged.connect(
+            lambda: [
+                self.ui.mExtentGroupBox.setOutputCrs(QgsProject.instance().crs()),
+                self.ui.mExtentGroupBox.setOutputExtentFromCurrent(),
+            ]
+        )
 
     def on_dataset_changed(self):
         self.loadButton.setEnabled(self.is_executable())
