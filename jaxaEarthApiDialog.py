@@ -97,15 +97,15 @@ class JaxaEarthApiDialog(QDialog):
 
         for dataset_name, dataset_info in CATALOG.items():
             bbox = dataset_info["bbox"][0]
-            logitude_W = int(bbox[0])
-            logitude_E = int(bbox[2])
-            logitude = [logitude_W, logitude_E]
+            longitude_W = int(bbox[0])
+            longitude_E = int(bbox[2])
+            longitude = [longitude_W, longitude_E]
 
             _dataset_info = {**dataset_info, "key": dataset_name}
 
-            if logitude == [-180, 180]:
+            if longitude == [-180, 180]:
                 classes["globe"].append(_dataset_info)
-            elif -180 < logitude_W < 180:
+            elif -180 < longitude_W < 180:
                 classes["local"].append(_dataset_info)
             else:
                 classes["unknown"].append(_dataset_info)
