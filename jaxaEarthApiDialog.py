@@ -143,6 +143,8 @@ class JaxaEarthApiDialog(QDialog):
         self.loadButton.setEnabled(self.is_executable())
         self.detailsButton.setEnabled(self.is_executable())
 
+        self.adjustSize()
+
     def is_executable(self):
         return (
             self.datasetCombobox.currentData() is not None
