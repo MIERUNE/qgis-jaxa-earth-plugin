@@ -37,7 +37,23 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="3" rowspan="2">
+    <item row="1" column="3">
+     <widget class="QPushButton" name="detailsButton">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Details</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
      <widget class="QPushButton" name="loadButton">
       <property name="enabled">
        <bool>false</bool>
