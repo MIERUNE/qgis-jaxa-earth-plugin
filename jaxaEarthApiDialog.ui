@@ -13,15 +13,6 @@
   <property name="windowTitle">
    <string>JAXA Earth API</string>
   </property>
-  <widget class="QWidget" name="DialogContents">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>425</width>
-     <height>56</height>
-    </rect>
-   </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="1">
      <widget class="QComboBox" name="datasetCombobox">
@@ -181,7 +172,6 @@
      </layout>
     </item>
    </layout>
-  </widget>
  </widget>
  <resources/>
  <connections/>
