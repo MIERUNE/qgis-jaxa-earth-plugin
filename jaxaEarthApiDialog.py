@@ -283,6 +283,13 @@ class JaxaEarthApiDialog(QDialog):
         start_datetime = self.startDateEdit.date().toString("yyyy-MM-dd") + "T00:00:00"
         end_datetime = self.endDateEdit.date().toString("yyyy-MM-dd") + "T23:59:59"
 
+        extent = [
+            self.ui.mExtentGroupBox.outputExtent().xMinimum(),
+            self.ui.mExtentGroupBox.outputExtent().yMinimum(),
+            self.ui.mExtentGroupBox.outputExtent().xMaximum(),
+            self.ui.mExtentGroupBox.outputExtent().yMaximum(),
+        ]
+
         # Get an image
         try:
             data = (
@@ -292,7 +299,7 @@ class JaxaEarthApiDialog(QDialog):
                 )
                 .filter_date([start_datetime, end_datetime])
                 .filter_resolution()
-                .filter_bounds(bbox=None)  # implicitly use MapCanvas Extent
+                .filter_bounds(bbox=extent)
                 .select(band)
                 .get_images()
             )
