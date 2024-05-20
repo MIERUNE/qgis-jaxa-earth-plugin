@@ -312,9 +312,23 @@ class JaxaEarthApiDialog(QDialog):
             print(e)
             return
 
-        print(data.stac_band.url)
-        print(len(data.stac_band.url))
-        print("getting data")
+        # check amount of data
+        data_count = len(data.stac_band.url)
+
+        if data_count == 0:
+            QMessageBox.information(self, "Error", "No feature found.")
+            return
+
+        if data_count > 0:
+            if QMessageBox.No == QMessageBox.question(
+                None,
+                "Check",
+                f"{data_count} features found.\nLoad it?",
+                QMessageBox.Yes,
+                QMessageBox.No,
+            ):
+                return
+
         try:
             data = je.ImageCollection.get_images(data)
         except Exception as e:
@@ -325,8 +339,6 @@ class JaxaEarthApiDialog(QDialog):
             )
             print(e)
             return
-
-        print("data OK")
 
         # Process and show an image
         qgs_layers = je.ImageProcess(data).get_qgis_layers()
