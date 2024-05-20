@@ -301,7 +301,7 @@ class JaxaEarthApiDialog(QDialog):
                 .filter_resolution()
                 .filter_bounds(bbox=extent)
                 .select(band)
-                .get_images()
+                # .get_images()
             )
         except Exception as e:
             QMessageBox.information(
@@ -311,6 +311,22 @@ class JaxaEarthApiDialog(QDialog):
             )
             print(e)
             return
+
+        print(data.stac_band.url)
+        print(len(data.stac_band.url))
+        print("getting data")
+        try:
+            data = je.ImageCollection.get_images(data)
+        except Exception as e:
+            QMessageBox.information(
+                self,
+                self.tr("Error"),
+                str(e),
+            )
+            print(e)
+            return
+
+        print("data OK")
 
         # Process and show an image
         qgs_layers = je.ImageProcess(data).get_qgis_layers()
