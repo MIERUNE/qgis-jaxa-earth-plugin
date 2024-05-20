@@ -301,7 +301,6 @@ class JaxaEarthApiDialog(QDialog):
                 .filter_resolution()
                 .filter_bounds(bbox=extent)
                 .select(band)
-                # .get_images()
             )
         except Exception as e:
             QMessageBox.information(
