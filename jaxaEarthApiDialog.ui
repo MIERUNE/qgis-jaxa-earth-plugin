@@ -187,8 +187,19 @@
       </item>
      </layout>
     </item>
+    <item row="3" column="1">
+     <widget class="QgsExtentGroupBox" name="mExtentGroupBox"/>
+    </item>
    </layout>
  </widget>
+ <customwidgets>
+ <customwidget>
+   <class>QgsExtentGroupBox</class>
+   <extends>QgsCollapsibleGroupBox</extends>
+   <header>qgsextentgroupbox.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

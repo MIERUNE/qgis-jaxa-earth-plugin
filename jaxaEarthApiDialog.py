@@ -24,6 +24,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from qgis.core import *
 from qgis.gui import *
+from qgis.utils import iface
 
 # Load module
 from .jaxa.earth import je
@@ -96,15 +97,15 @@ class JaxaEarthApiDialog(QDialog):
 
         for dataset_name, dataset_info in CATALOG.items():
             bbox = dataset_info["bbox"][0]
-            logitude_W = int(bbox[0])
-            logitude_E = int(bbox[2])
-            logitude = [logitude_W, logitude_E]
+            longitude_W = int(bbox[0])
+            longitude_E = int(bbox[2])
+            longitude = [longitude_W, longitude_E]
 
             _dataset_info = {**dataset_info, "key": dataset_name}
 
-            if logitude == [-180, 180]:
+            if longitude == [-180, 180]:
                 classes["globe"].append(_dataset_info)
-            elif -180 < logitude_W < 180:
+            elif -180 < longitude_W < 180:
                 classes["local"].append(_dataset_info)
             else:
                 classes["unknown"].append(_dataset_info)
@@ -138,6 +139,17 @@ class JaxaEarthApiDialog(QDialog):
 
         self.datasetCombobox.currentIndexChanged.connect(self.on_dataset_changed)
         self.bandCombobox.currentIndexChanged.connect(self.on_dataset_changed)
+
+        # QgsExtentGroupBox
+        self.ui.mExtentGroupBox.setMapCanvas(iface.mapCanvas())
+        self.ui.mExtentGroupBox.setOutputCrs(QgsProject.instance().crs())
+        self.ui.mExtentGroupBox.setOutputExtentFromCurrent()
+        QgsProject.instance().crsChanged.connect(
+            lambda: [
+                self.ui.mExtentGroupBox.setOutputCrs(QgsProject.instance().crs()),
+                self.ui.mExtentGroupBox.setOutputExtentFromCurrent(),
+            ]
+        )
 
     def on_dataset_changed(self):
         self.loadButton.setEnabled(self.is_executable())
@@ -271,6 +283,13 @@ class JaxaEarthApiDialog(QDialog):
         start_datetime = self.startDateEdit.date().toString("yyyy-MM-dd") + "T00:00:00"
         end_datetime = self.endDateEdit.date().toString("yyyy-MM-dd") + "T23:59:59"
 
+        extent = [
+            self.ui.mExtentGroupBox.outputExtent().xMinimum(),
+            self.ui.mExtentGroupBox.outputExtent().yMinimum(),
+            self.ui.mExtentGroupBox.outputExtent().xMaximum(),
+            self.ui.mExtentGroupBox.outputExtent().yMaximum(),
+        ]
+
         # Get an image
         try:
             data = (
@@ -280,7 +299,7 @@ class JaxaEarthApiDialog(QDialog):
                 )
                 .filter_date([start_datetime, end_datetime])
                 .filter_resolution()
-                .filter_bounds(bbox=None)  # implicitly use MapCanvas Extent
+                .filter_bounds(bbox=extent)
                 .select(band)
                 .get_images()
             )
