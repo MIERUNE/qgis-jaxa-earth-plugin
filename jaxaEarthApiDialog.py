@@ -274,7 +274,7 @@ class JaxaEarthApiDialog(QDialog):
             > 365 * 24 * 60 * 60
         ):
             QMessageBox.information(
-                self, "Error", "1年を超える期間を指定することは出来ません。"
+                self, "Error", self.tr("1年を超える期間を指定することは出来ません。", None)
             )
             return
 
