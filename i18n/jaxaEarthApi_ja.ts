@@ -59,7 +59,7 @@
     <message>
         <location filename="../jaxaEarthApiDialog.py" line="276"/>
         <source>1年を超える期間を指定することは出来ません。</source>
-        <translation type="unfinished">&quot;1年を超える期間を指定することは出来ません。</translation>
+        <translation type="unfinished">1年を超える期間を指定することは出来ません。</translation>
     </message>
     <message>
         <location filename="../jaxaEarthApiDialog.py" line="334"/>
