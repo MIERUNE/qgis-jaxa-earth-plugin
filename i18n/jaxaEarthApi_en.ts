@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0">
+<!DOCTYPE TS>
+<TS version="2.1" language="en">
 <context>
     <name>Dialog</name>
     <message>
@@ -54,6 +55,11 @@
         <location filename="../jaxaEarthApiDialog.py" line="129"/>
         <source>----------- Unknown -----------</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jaxaEarthApiDialog.py" line="276"/>
+        <source>1年を超える期間を指定することは出来ません。</source>
+        <translation>A period exceeding 1 year cannot be set.</translation>
     </message>
     <message>
         <location filename="../jaxaEarthApiDialog.py" line="334"/>

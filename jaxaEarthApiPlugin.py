@@ -38,6 +38,17 @@ class JaxaEarthApiPlugin:
         self.toolbar.setObjectName(PLUGIN_NAME)
         self.dialog = None
         self.action = None
+        # initialize locale
+        locale = QSettings().value('locale/userLocale')[0:2]
+        locale_path = os.path.join(
+            self.plugin_dir,
+            'i18n',
+            'jaxaEarthApi_{}.qm'.format(locale))
+
+        if os.path.exists(locale_path):
+            self.translator = QTranslator()
+            self.translator.load(locale_path)
+            QCoreApplication.installTranslator(self.translator)
 
     def add_action(
         self,
