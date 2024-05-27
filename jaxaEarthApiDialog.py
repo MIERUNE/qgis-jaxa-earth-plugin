@@ -19,11 +19,11 @@ import webbrowser
 
 # QGIS-API
 from qgis.PyQt import uic
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from qgis.core import *
-from qgis.gui import *
+from PyQt5.QtCore import pyqtSignal, QDateTime
+
+from PyQt5.QtWidgets import QMessageBox, QDialog
+from qgis.core import QgsProject, QgsDateTimeRange
+
 from qgis.utils import iface
 
 # Load module
@@ -301,8 +301,40 @@ class JaxaEarthApiDialog(QDialog):
                 .filter_resolution()
                 .filter_bounds(bbox=extent)
                 .select(band)
-                .get_images()
             )
+        except Exception as e:
+            QMessageBox.information(
+                self,
+                self.tr("Error"),
+                str(e),
+            )
+            print(e)
+            return
+
+        # check amount of data
+        if hasattr(data, "stac_band") and hasattr(data.stac_band, "url"):
+            data_count = len(data.stac_band.url)
+        else:
+            data_count = 0
+
+        if data_count == 0:
+            QMessageBox.information(
+                self, self.tr("Error"), self.tr("No feature found.")
+            )
+            return
+
+        if data_count > 0:
+            if QMessageBox.No == QMessageBox.question(
+                None,
+                "Check",
+                f"{data_count} features found.\nLoad it?",
+                QMessageBox.Yes,
+                QMessageBox.No,
+            ):
+                return
+
+        try:
+            data = je.ImageCollection.get_images(data)
         except Exception as e:
             QMessageBox.information(
                 self,
