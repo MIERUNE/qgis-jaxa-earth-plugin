@@ -21,11 +21,9 @@ import webbrowser
 from qgis.PyQt import uic
 from PyQt5.QtCore import pyqtSignal, QDateTime
 
-# from PyQt5.QtGui import *
 from PyQt5.QtWidgets import QMessageBox, QDialog
 from qgis.core import QgsProject, QgsDateTimeRange
 
-# from qgis.gui import *
 from qgis.utils import iface
 
 # Load module
