@@ -19,11 +19,13 @@ import webbrowser
 
 # QGIS-API
 from qgis.PyQt import uic
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from qgis.core import *
-from qgis.gui import *
+from PyQt5.QtCore import pyqtSignal, QDateTime
+
+# from PyQt5.QtGui import *
+from PyQt5.QtWidgets import QMessageBox, QDialog
+from qgis.core import QgsProject, QgsDateTimeRange
+
+# from qgis.gui import *
 from qgis.utils import iface
 
 # Load module
@@ -312,10 +314,15 @@ class JaxaEarthApiDialog(QDialog):
             return
 
         # check amount of data
-        data_count = len(data.stac_band.url)
+        if hasattr(data, "stac_band") and hasattr(data.stac_band, "url"):
+            data_count = len(data.stac_band.url)
+        else:
+            data_count = 0
 
         if data_count == 0:
-            QMessageBox.information(self, "Error", "No feature found.")
+            QMessageBox.information(
+                self, self.tr("Error"), self.tr("No feature found.")
+            )
             return
 
         if data_count > 0:
