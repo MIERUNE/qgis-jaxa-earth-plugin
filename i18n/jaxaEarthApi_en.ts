@@ -58,7 +58,7 @@
     </message>
     <message>
         <location filename="../jaxaEarthApiDialog.py" line="276"/>
-        <source>1年を超える期間を指定することは出来ません。</source>
+        <source>A period exceeding 1 year cannot be set.</source>
         <translation>A period exceeding 1 year cannot be set.</translation>
     </message>
     <message>
