@@ -166,6 +166,9 @@ class JaxaEarthApiDialog(QDialog):
     def reload_band_combobox(self):
         self.bandCombobox.clear()
         if self.datasetCombobox.currentData() is None:
+            # Show no period available
+            self.label_start_available_period.setText("-")
+            self.label_end_available_period.setText("-")
             return
 
         dataset_info = self.datasetCombobox.currentData()
@@ -183,7 +186,19 @@ class JaxaEarthApiDialog(QDialog):
         ]
 
         interval_start_time = dataset_info["temporal"][0][0]
-        interval_end_time = dataset_info["temporal"][0][1]  # str
+        interval_end_time = dataset_info["temporal"][0][1]  # str 2012-01-01T00:00:00Z
+
+        # set avalaible period as text in UI
+        self.label_start_available_period.setText(interval_start_time.split("T")[0])
+
+        if interval_end_time:
+            interval_end_time_txt = interval_end_time.split("T")[0]
+        else:
+            # set today when end time is not defined
+            today = datetime.datetime.today()
+            interval_end_time_txt = today.strftime("%Y-%m-%d")
+
+        self.label_end_available_period.setText(interval_end_time_txt)
 
         interval_start_time_obj = datetime.datetime.strptime(
             interval_start_time, "%Y-%m-%dT%H:%M:%SZ"

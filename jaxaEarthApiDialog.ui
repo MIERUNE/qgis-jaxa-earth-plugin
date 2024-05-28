@@ -211,7 +211,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_start_available_period">
+       <widget class="QLabel" name="label_end_available_period">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
