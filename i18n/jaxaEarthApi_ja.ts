@@ -19,29 +19,34 @@
         <translation type="unfinished">ロード</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.ui" line="77"/>
+        <location filename="../jaxaEarthApiDialog.ui" line="93"/>
         <source>Filter-Date</source>
         <translation type="unfinished">取得期間</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.ui" line="184"/>
+        <location filename="../jaxaEarthApiDialog.ui" line="200"/>
         <source>yyyy/MM/dd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.ui" line="209"/>
+        <location filename="../jaxaEarthApiDialog.ui" line="225"/>
         <source>-&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.ui" line="195"/>
+        <location filename="../jaxaEarthApiDialog.ui" line="211"/>
         <source>Avalaible period: </source>
         <translation>取得可能期間 </translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.ui" line="222"/>
+        <location filename="../jaxaEarthApiDialog.ui" line="238"/>
         <source>-</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jaxaEarthApiDialog.ui" line="84"/>
+        <source>Help</source>
+        <translation type="unfinished">ヘルプ</translation>
     </message>
 </context>
 <context>
@@ -67,22 +72,22 @@
         <translation type="unfinished">----------- Unknown -----------</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="292"/>
+        <location filename="../jaxaEarthApiDialog.py" line="293"/>
         <source>A period exceeding 1 year cannot be set.</source>
         <translation type="unfinished">1年を超える期間を指定することは出来ません。</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="355"/>
+        <location filename="../jaxaEarthApiDialog.py" line="356"/>
         <source>Error</source>
         <translation type="unfinished">エラー</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="200"/>
+        <location filename="../jaxaEarthApiDialog.py" line="201"/>
         <source>Present</source>
         <translation type="unfinished">現在</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="337"/>
+        <location filename="../jaxaEarthApiDialog.py" line="338"/>
         <source>No feature found.</source>
         <translation>データが見つかりませんでした</translation>
     </message>

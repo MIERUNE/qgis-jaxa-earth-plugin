@@ -136,6 +136,7 @@ class JaxaEarthApiDialog(QDialog):
 
         self.loadButton.clicked.connect(lambda: self.load_dataset())
         self.detailsButton.clicked.connect(lambda: self.show_details())
+        self.helpButton.clicked.connect(lambda: self.show_readme())
 
         self.datasetCombobox.currentIndexChanged.connect(self.on_dataset_changed)
         self.bandCombobox.currentIndexChanged.connect(self.on_dataset_changed)
@@ -403,4 +404,8 @@ class JaxaEarthApiDialog(QDialog):
     def show_details(self):
         dataset_name = self.datasetCombobox.currentData()["key"]
         webbrowser.open(f"https://data.earth.jaxa.jp/app/qgis/datasets/#{dataset_name}")
+        return
+
+    def show_readme(self):
+        webbrowser.open("https://github.com/MIERUNE/qgis-jaxa-earth-plugin")
         return
