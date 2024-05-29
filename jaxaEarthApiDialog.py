@@ -156,6 +156,7 @@ class JaxaEarthApiDialog(QDialog):
         self.loadButton.setToolTip("Load selected data to map canvas")
         self.detailsButton.setToolTip("Check dataset details in Jaxa earth website")
         self.helpButton.setToolTip("Further explanations on Github page")
+        self.ui.mExtentGroupBox.DrawOnCanvas.setToolTip("Layer<br>Draw on canvas<br>")
 
     def on_dataset_changed(self):
         self.loadButton.setEnabled(self.is_executable())
