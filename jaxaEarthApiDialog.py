@@ -195,8 +195,9 @@ class JaxaEarthApiDialog(QDialog):
             interval_end_time_txt = interval_end_time.split("T")[0]
         else:
             # set today when end time is not defined
-            today = datetime.datetime.today()
-            interval_end_time_txt = today.strftime("%Y-%m-%d")
+            #today = datetime.datetime.today()
+            #interval_end_time_txt = today.strftime("%Y-%m-%d")
+            interval_end_time_txt = self.tr("Present", None)
 
         self.label_end_available_period.setText(interval_end_time_txt)
 
