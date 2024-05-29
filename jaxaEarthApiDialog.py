@@ -401,5 +401,5 @@ class JaxaEarthApiDialog(QDialog):
 
     def show_details(self):
         dataset_name = self.datasetCombobox.currentData()["key"]
-        webbrowser.open(f"https://data.earth.jaxa.jp/en/datasets/#/id/{dataset_name}")
+        webbrowser.open(f"https://data.earth.jaxa.jp/app/qgis/datasets/#{dataset_name}")
         return
