@@ -411,7 +411,5 @@ class JaxaEarthApiDialog(QDialog):
         return
 
     def show_readme(self):
-        webbrowser.open(
-            "https://github.com/MIERUNE/qgis-jaxa-earth-plugin/blob/master/README.md"
-        )
+        webbrowser.open("https://github.com/MIERUNE/qgis-jaxa-earth-plugin")
         return
