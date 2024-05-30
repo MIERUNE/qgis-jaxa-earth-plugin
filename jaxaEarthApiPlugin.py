@@ -1,6 +1,6 @@
 """
 /***************************************************************************
- Sample
+ JAXA Earth API Plugin
                                  A QGIS plugin
  QGIS Plugin for JAXA Earth API, easily get satellite datasets.
                               -------------------
