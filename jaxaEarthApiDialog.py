@@ -1,8 +1,8 @@
 """
 /***************************************************************************
- Sample
+ JAXA Earth API Plugin
                                  A QGIS plugin
- QGIS Sample Plugin
+ QGIS Plugin for JAXA Earth API, easily get satellite datasets.
                               -------------------
         begin                : 2021-06-30
         git sha              : $Format:%H$

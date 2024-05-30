@@ -2,7 +2,7 @@
 /***************************************************************************
  Sample
                                  A QGIS plugin
- QGIS Sample Plugin
+ QGIS Plugin for JAXA Earth API, easily get satellite datasets.
                               -------------------
         begin                : 2021-06-30
         git sha              : $Format:%H$
@@ -39,11 +39,10 @@ class JaxaEarthApiPlugin:
         self.dialog = None
         self.action = None
         # initialize locale
-        locale = QSettings().value('locale/userLocale')[0:2]
+        locale = QSettings().value("locale/userLocale")[0:2]
         locale_path = os.path.join(
-            self.plugin_dir,
-            'i18n',
-            'jaxaEarthApi_{}.qm'.format(locale))
+            self.plugin_dir, "i18n", "jaxaEarthApi_{}.qm".format(locale)
+        )
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
