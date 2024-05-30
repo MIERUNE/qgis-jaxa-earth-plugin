@@ -34,7 +34,7 @@ from .jaxa.earth import je
 CATALOG_URL = "https://data.earth.jaxa.jp/app/qgis/catalog.json"
 
 try:
-    response = requests.get(CATALOG_URL)
+    response = requests.get(CATALOG_URL, timeout=60)
     if response.status_code == 200:
         CATALOG = response.json()
         print(response)
