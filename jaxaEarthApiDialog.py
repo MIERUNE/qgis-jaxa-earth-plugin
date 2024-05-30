@@ -1,8 +1,8 @@
 """
 /***************************************************************************
- Sample
+ JAXA Earth API Plugin
                                  A QGIS plugin
- QGIS Sample Plugin
+ QGIS Plugin for JAXA Earth API, easily get satellite datasets.
                               -------------------
         begin                : 2021-06-30
         git sha              : $Format:%H$
@@ -16,6 +16,7 @@ import os
 import json
 import datetime
 import webbrowser
+import requests
 
 # QGIS-API
 from qgis.PyQt import uic
@@ -29,8 +30,37 @@ from qgis.utils import iface
 # Load module
 from .jaxa.earth import je
 
-with open(os.path.join(os.path.dirname(__file__), "catalog.json")) as f:
-    CATALOG = json.load(f)
+# Load jaxa dataset catalog
+CATALOG_URL = "https://data.earth.jaxa.jp/app/qgis/catalog.json"
+
+try:
+    response = requests.get(CATALOG_URL, timeout=60)
+    if response.status_code == 200:
+        CATALOG = response.json()
+        print(response)
+    else:
+        message = "Could not load catalog.json\n"
+        message += f"Response {response.status_code} \nLoad local catalog"
+        QMessageBox.information(
+            None,
+            "JAXA Earth API Plugin - Warning",
+            message,
+        )
+        # Fallback load local catalog
+        with open(os.path.join(os.path.dirname(__file__), "catalog.json")) as f:
+            CATALOG = json.load(f)
+except Exception as e:
+    message = "Could not load catalog.json\n"
+    message += f"{str(e)} \nLoad local catalog"
+    QMessageBox.information(
+        None,
+        "JAXA Earth API Plugin - Warning",
+        message,
+    )
+    print(e)
+    # Fallback load local catalog
+    with open(os.path.join(os.path.dirname(__file__), "catalog.json")) as f:
+        CATALOG = json.load(f)
 
 
 def parse_jaxa_dateid(date_id: str, year=None) -> (int, int, int):
