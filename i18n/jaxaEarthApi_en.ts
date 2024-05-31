@@ -72,24 +72,54 @@
         <translation type="unfinished">----------- Unknown -----------</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="293"/>
+        <location filename="../jaxaEarthApiDialog.py" line="303"/>
         <source>A period exceeding 1 year cannot be set.</source>
         <translation type="unfinished">A period exceeding 1 year cannot be set.</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="356"/>
+        <location filename="../jaxaEarthApiDialog.py" line="366"/>
         <source>Error</source>
         <translation type="unfinished">Error</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="201"/>
+        <location filename="../jaxaEarthApiDialog.py" line="211"/>
         <source>Present</source>
         <translation type="unfinished">Present</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="338"/>
+        <location filename="../jaxaEarthApiDialog.py" line="348"/>
         <source>No feature found.</source>
         <translation type="unfinished">No feature found.</translation>
+    </message>
+    <message>
+        <location filename="../jaxaEarthApiDialog.py" line="156"/>
+        <source>Load selected data to map canvas</source>
+        <translation type="unfinished">Load selected data to map canvas</translation>
+    </message>
+    <message>
+        <location filename="../jaxaEarthApiDialog.py" line="157"/>
+        <source>Check dataset details in Jaxa earth website</source>
+        <translation type="unfinished">Check dataset details in Jaxa earth website</translation>
+    </message>
+    <message>
+        <location filename="../jaxaEarthApiDialog.py" line="158"/>
+        <source>Further explanations on Github page</source>
+        <translation type="unfinished">Further explanations on Github page</translation>
+    </message>
+    <message>
+        <location filename="../jaxaEarthApiDialog.py" line="159"/>
+        <source>Set target extent as:&lt;br&gt;
+            - Layer: target layer extent&lt;br&gt;
+            - Layout Map: target layout map extent&lt;br&gt;
+            - Bookmark: extent saved on bookmark&lt;br&gt;
+            - Map Canvas Extent: current map canvas&lt;br&gt;
+            - Draw on canvas: draw customize extent on map canvas</source>
+        <translation type="unfinished">Set target extent as:&lt;br&gt;
+            - Layer: target layer extent&lt;br&gt;
+            - Layout Map: target layout map extent&lt;br&gt;
+            - Bookmark: extent saved on bookmark&lt;br&gt;
+            - Map Canvas Extent: current map canvas&lt;br&gt;
+            - Draw on canvas: draw customize extent on map canvas</translation>
     </message>
 </context>
 </TS>
