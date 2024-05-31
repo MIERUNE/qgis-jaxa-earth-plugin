@@ -182,6 +182,18 @@ class JaxaEarthApiDialog(QDialog):
             ]
         )
 
+        # tooltips
+        self.loadButton.setToolTip(self.tr("Load selected data to map canvas",None))
+        self.detailsButton.setToolTip(self.tr("Check dataset details in Jaxa earth website",None))
+        self.helpButton.setToolTip(self.tr("Further explanations on Github page",None))
+        extent_tooltip = self.tr("""Set target extent as:<br>
+            - Layer: target layer extent<br>
+            - Layout Map: target layout map extent<br>
+            - Bookmark: extent saved on bookmark<br>
+            - Map Canvas Extent: current map canvas<br>
+            - Draw on canvas: draw customize extent on map canvas""",None)
+        self.ui.mExtentGroupBox.setToolTip(extent_tooltip)
+
     def on_dataset_changed(self):
         self.loadButton.setEnabled(self.is_executable())
         self.detailsButton.setEnabled(self.is_executable())

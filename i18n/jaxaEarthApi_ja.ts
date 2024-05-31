@@ -72,24 +72,54 @@
         <translation type="unfinished">----------- Unknown -----------</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="293"/>
+        <location filename="../jaxaEarthApiDialog.py" line="303"/>
         <source>A period exceeding 1 year cannot be set.</source>
         <translation type="unfinished">1年を超える期間を指定することは出来ません。</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="356"/>
+        <location filename="../jaxaEarthApiDialog.py" line="366"/>
         <source>Error</source>
         <translation type="unfinished">エラー</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="201"/>
+        <location filename="../jaxaEarthApiDialog.py" line="211"/>
         <source>Present</source>
         <translation type="unfinished">現在</translation>
     </message>
     <message>
-        <location filename="../jaxaEarthApiDialog.py" line="338"/>
+        <location filename="../jaxaEarthApiDialog.py" line="348"/>
         <source>No feature found.</source>
         <translation>データが見つかりませんでした</translation>
+    </message>
+    <message>
+        <location filename="../jaxaEarthApiDialog.py" line="156"/>
+        <source>Load selected data to map canvas</source>
+        <translation type="unfinished">データをマップキャンバスに追加</translation>
+    </message>
+    <message>
+        <location filename="../jaxaEarthApiDialog.py" line="157"/>
+        <source>Check dataset details in Jaxa earth website</source>
+        <translation type="unfinished">データの詳細ページを開く</translation>
+    </message>
+    <message>
+        <location filename="../jaxaEarthApiDialog.py" line="158"/>
+        <source>Further explanations on Github page</source>
+        <translation type="unfinished">プラグインのマニュアルページを開く</translation>
+    </message>
+    <message>
+        <location filename="../jaxaEarthApiDialog.py" line="159"/>
+        <source>Set target extent as:&lt;br&gt;
+            - Layer: target layer extent&lt;br&gt;
+            - Layout Map: target layout map extent&lt;br&gt;
+            - Bookmark: extent saved on bookmark&lt;br&gt;
+            - Map Canvas Extent: current map canvas&lt;br&gt;
+            - Draw on canvas: draw customize extent on map canvas</source>
+        <translation type="unfinished">領域の指定:&lt;br&gt;
+            - レイヤ: レイヤの領域を利用&lt;br&gt;
+            - レイアウトマップ: レイアウトマップの領域を利用&lt;br&gt;
+            - ブックマーク: ブックマークの領域を利用&lt;br&gt;
+            - マップキャンバス: 現在のマップキャンバスの領域を利用&lt;br&gt;
+            - キャンバスに描画: マップ上で指定した領域を利用</translation>
     </message>
 </context>
 </TS>
