@@ -7,6 +7,7 @@ QGIS Plugin for JAXA Earth API
 [QGIS Python Plugins Repository](https://plugins.qgis.org/plugins/qgis-jaxa-earth-plugin-master)  
 
 ![04](imgs/04.jpg)
+[More information about JAXA Earth API](https://data.earth.jaxa.jp/)
 
 ## Usage
 
@@ -31,7 +32,7 @@ QGIS Plugin for JAXA Earth API
 ![03](imgs/03.jpg)
 
 > **Note**  
-> This plugin is not related to [JAXA](https://www.jaxa.jp/). It is just using [JAXA Earth API for Python](https://data.earth.jaxa.jp/api/python/index.html) distributed by JAXA. JAXA Earth API for Python is Prototype, so this plugin is also Prototype.  
+> This plugin is not related to [JAXA](https://www.jaxa.jp/). It just uses [JAXA Earth API for Python](https://data.earth.jaxa.jp/api/python/index.html) distributed by JAXA. JAXA Earth API for Python is a prototype, so this plugin is also a prototype.  
 
 ## License
 
