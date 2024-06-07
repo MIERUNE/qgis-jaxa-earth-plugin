@@ -23,7 +23,6 @@ QGIS Plugin for JAXA Earth API
     - Bookmark: extent saved on bookmark
     - Map Canvas Extent: current map canvas extent
     - Draw on Canvas: draw customize extent on map canvas
-- Default area of interest is map canvas extent when plugin is launched.
 
 ![02](imgs/02.jpg)
 
