@@ -19,6 +19,7 @@ QGIS Plugin for JAXA Earth API
 3. Set map CRS to EPSG:4326 or EPSG:3857 then set the area of interest.  
 
 - Area of interest can be set with:
+
   - Layer: target layer extent
   - Layout Map: target layout map extent
   - Bookmark: extent saved on bookmark
@@ -28,7 +29,9 @@ QGIS Plugin for JAXA Earth API
 ![02](imgs/02.jpg)
 
 4. Select dataset, band, and date range, then Load!
+
 - Dataset further information can be checked by clicking on "Details" button
+
 ![03](imgs/03.jpg)
 
 > **Note**  
