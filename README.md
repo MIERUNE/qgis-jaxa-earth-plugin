@@ -30,7 +30,7 @@ QGIS Plugin for JAXA Earth API
 
 4. Select dataset, band, and date range, then Load!
 
-- Dataset further information can be checked by clicking on "Details" button
+- Dataset further information can be checked by clicking on the "Details" button
 
 ![03](imgs/03.jpg)
 
