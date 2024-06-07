@@ -13,21 +13,21 @@ QGIS Plugin for JAXA Earth API
 
 1. Install the plugin via [QGIS Python Plugins Repository](https://plugins.qgis.org/plugins/qgis-jaxa-earth-plugin-master) or ZIP-file downloadable from releases.  
 
-2. JAXA Earth Icon is added to QGIS toolbar. By clicking on this icon, Plugin dialog is shown.  
+2. JAXA Earth API plugin icon is added to QGIS toolbar. By clicking on this icon, Plugin dialog is shown.  
 ![01](imgs/01.jpg)
 
-3. Set map CRS to EPSG:4326 or EPSG:3857 then, set the area of interest.  
+3. Set map CRS to EPSG:4326 or EPSG:3857 then set the area of interest.  
 - Area of interest can be set with:
     - Layer: target layer extent
     - Layout Map: target layout map extent
     - Bookmark: extent saved on bookmark
     - Map Canvas Extent: current map canvas extent
-    - Draw on canvas: draw customize extent on map canvas
+    - Draw on Canvas: draw customize extent on map canvas
 - Default is current map extent.
 
 ![02](imgs/02.jpg)
 
-4. Select the dataset, a band, and the date range, then Load!
+4. Select dataset, band, and date range, then Load!
 - Dataset further information can be checked by clicking on "Details" button 
 ![03](imgs/03.jpg)
 
