@@ -34,6 +34,10 @@ QGIS Plugin for JAXA Earth API
 
 ![03](imgs/03.jpg)
 
+## YouTube Demonstration
+
+[![Demonstration video](https://img.youtube.com/vi/qDQN1KeuGXE/0.jpg)](https://www.youtube.com/watch?v=qDQN1KeuGXE)
+
 > **Note**  
 > This plugin is not related to [JAXA](https://global.jaxa.jp/). It just uses [JAXA Earth API for Python](https://data.earth.jaxa.jp/api/python/index.html) distributed by JAXA. JAXA Earth API for Python is a prototype, so this plugin is also a prototype.  
 
