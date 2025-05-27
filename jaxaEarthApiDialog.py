@@ -380,7 +380,7 @@ class JaxaEarthApiDialog(QDialog):
             return
 
         if data_count > 0:
-            if QMessageBox.No == QMessageBox.question(
+            if QMessageBox.StandardButton.No == QMessageBox.question(
                 None,
                 "Check",
                 f"{data_count} features found.\nLoad it?",
