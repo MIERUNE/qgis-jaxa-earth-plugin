@@ -182,15 +182,20 @@ class JaxaEarthApiDialog(QDialog):
         )
 
         # tooltips
-        self.loadButton.setToolTip(self.tr("Load selected data to map canvas",None))
-        self.detailsButton.setToolTip(self.tr("Check dataset details in Jaxa earth website",None))
-        self.helpButton.setToolTip(self.tr("Further explanations on Github page",None))
-        extent_tooltip = self.tr("""Set target extent as:<br>
+        self.loadButton.setToolTip(self.tr("Load selected data to map canvas", None))
+        self.detailsButton.setToolTip(
+            self.tr("Check dataset details in Jaxa earth website", None)
+        )
+        self.helpButton.setToolTip(self.tr("Further explanations on Github page", None))
+        extent_tooltip = self.tr(
+            """Set target extent as:<br>
             - Layer: target layer extent<br>
             - Layout Map: target layout map extent<br>
             - Bookmark: extent saved on bookmark<br>
             - Map Canvas Extent: current map canvas<br>
-            - Draw on canvas: draw customize extent on map canvas""",None)
+            - Draw on canvas: draw customize extent on map canvas""",
+            None,
+        )
         self.ui.mExtentGroupBox.setToolTip(extent_tooltip)
 
     def on_dataset_changed(self):
@@ -273,7 +278,7 @@ class JaxaEarthApiDialog(QDialog):
                     ct_list[2],
                     ct_list[3],
                     ct_list[4],
-                    ct_list[5]
+                    ct_list[5],
                 )
             )
 
@@ -284,7 +289,7 @@ class JaxaEarthApiDialog(QDialog):
                     ct_list[2],
                     ct_list[3],
                     ct_list[4],
-                    ct_list[5]
+                    ct_list[5],
                 )
             )
 
@@ -308,7 +313,7 @@ class JaxaEarthApiDialog(QDialog):
                     et_list[2],
                     et_list[3],
                     et_list[4],
-                    et_list[5]
+                    et_list[5],
                 )
             )
 
@@ -319,7 +324,7 @@ class JaxaEarthApiDialog(QDialog):
                     et_list[2],
                     et_list[3],
                     et_list[4],
-                    et_list[5]
+                    et_list[5],
                 )
             )
 
