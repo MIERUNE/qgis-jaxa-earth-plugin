@@ -384,8 +384,8 @@ class JaxaEarthApiDialog(QDialog):
                 None,
                 "Check",
                 f"{data_count} features found.\nLoad it?",
-                QMessageBox.Yes,
-                QMessageBox.No,
+                QMessageBox.StandardButton.Yes,
+                QMessageBox.StandardButton.No,
             ):
                 return
 
