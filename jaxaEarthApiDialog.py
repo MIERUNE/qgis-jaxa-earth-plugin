@@ -20,7 +20,7 @@ import requests
 
 # QGIS-API
 from qgis.PyQt import uic
-from qgis.PyQt.QtCore import pyqtSignal, QDateTime, Qt
+from qgis.PyQt.QtCore import pyqtSignal, QDateTime
 from qgis.PyQt.QtWidgets import QMessageBox, QDialog
 from qgis.core import QgsProject, QgsDateTimeRange
 
@@ -217,7 +217,7 @@ class JaxaEarthApiDialog(QDialog):
         for band in dataset_info.get("bands", []):
             self.bandCombobox.addItem(band, band)
 
-        current_time = datetime.datetime.now()
+        current_time = datetime.datetime.utcnow()
         ct_list = [
             current_time.year,
             current_time.month,
@@ -255,13 +255,13 @@ class JaxaEarthApiDialog(QDialog):
 
         self.startDateEdit.setMinimumDateTime(
             QDateTime(
-                st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5], Qt.UTC
+                st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5]
             )
         )
 
         self.endDateEdit.setMinimumDateTime(
             QDateTime(
-                st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5], Qt.UTC
+                st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5]
             )
         )
 
@@ -274,7 +274,7 @@ class JaxaEarthApiDialog(QDialog):
                     ct_list[3],
                     ct_list[4],
                     ct_list[5],
-                    Qt.UTC
+                    
                 )
             )
 
@@ -286,7 +286,7 @@ class JaxaEarthApiDialog(QDialog):
                     ct_list[3],
                     ct_list[4],
                     ct_list[5],
-                    Qt.UTC
+                    
                 )
             )
 
@@ -311,7 +311,7 @@ class JaxaEarthApiDialog(QDialog):
                     et_list[3],
                     et_list[4],
                     et_list[5],
-                    Qt.UTC
+                    
                 )
             )
 
@@ -323,7 +323,7 @@ class JaxaEarthApiDialog(QDialog):
                     et_list[3],
                     et_list[4],
                     et_list[5],
-                    Qt.UTC
+                    
                 )
             )
 
