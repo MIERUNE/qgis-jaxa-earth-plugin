@@ -20,14 +20,11 @@ import requests
 
 # QGIS-API
 from qgis.PyQt import uic
-from qgis.PyQt.QtCore import pyqtSignal, QDateTime, QTimeZone, QByteArray, QT_VERSION_STR
+from qgis.PyQt.QtCore import pyqtSignal, QDateTime
 from qgis.PyQt.QtWidgets import QMessageBox, QDialog
 from qgis.core import QgsProject, QgsDateTimeRange
 
 from qgis.utils import iface
-
-# Format Qt Version
-QT_VERSION_INT = int(QT_VERSION_STR.split(".")[0])
 
 # Load module
 from .jaxa.earth import je
@@ -220,7 +217,7 @@ class JaxaEarthApiDialog(QDialog):
         for band in dataset_info.get("bands", []):
             self.bandCombobox.addItem(band, band)
 
-        current_time = datetime.datetime.now(datetime.timezone.utc)
+        current_time = datetime.datetime.now()
         ct_list = [
             current_time.year,
             current_time.month,
@@ -256,50 +253,40 @@ class JaxaEarthApiDialog(QDialog):
             interval_start_time_obj.second,
         ]
 
-        if QT_VERSION_INT <= 5:
-            min_datetime = QDateTime(
-                st_list[0],
-                st_list[1],
-                st_list[2],
-                st_list[3],
-                st_list[4],
-                st_list[5]
+        self.startDateEdit.setMinimumDateTime(
+            QDateTime(
+                st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5]
             )
+        )
 
-            max_datetime = QDateTime(
-                ct_list[0],
-                ct_list[1],
-                ct_list[2],
-                ct_list[3],
-                ct_list[4],
-                ct_list[5]
+        self.endDateEdit.setMinimumDateTime(
+            QDateTime(
+                st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5]
             )
-        else:
-            min_datetime = QDateTime(
-                st_list[0],
-                st_list[1],
-                st_list[2],
-                st_list[3],
-                st_list[4],
-                st_list[5],
-                # QTimeZone(QByteArray(b"UTC"))
-            )
-            max_datetime = QDateTime(
-                ct_list[0],
-                ct_list[1],
-                ct_list[2],
-                ct_list[3],
-                ct_list[4],
-                ct_list[5],
-                # QTimeZone(QByteArray(b"UTC"))
-            )
-
-        self.startDateEdit.setMinimumDateTime(min_datetime)
-        self.endDateEdit.setMinimumDateTime(min_datetime)
+        )
 
         if interval_end_time is None:
-            self.startDateEdit.setMaximumDateTime(max_datetime)
-            self.endDateEdit.setMaximumDateTime(max_datetime)
+            self.startDateEdit.setMaximumDateTime(
+                QDateTime(
+                    ct_list[0],
+                    ct_list[1],
+                    ct_list[2],
+                    ct_list[3],
+                    ct_list[4],
+                    ct_list[5]
+                )
+            )
+
+            self.endDateEdit.setMaximumDateTime(
+                QDateTime(
+                    ct_list[0],
+                    ct_list[1],
+                    ct_list[2],
+                    ct_list[3],
+                    ct_list[4],
+                    ct_list[5]
+                )
+            )
 
         else:
             interval_end_time_obj = datetime.datetime.strptime(
@@ -313,8 +300,9 @@ class JaxaEarthApiDialog(QDialog):
                 interval_end_time_obj.minute,
                 interval_end_time_obj.second,
             ]
-            if QT_VERSION_INT <= 5:
-                min_datetime =  QDateTime(
+
+            self.startDateEdit.setMaximumDateTime(
+                QDateTime(
                     et_list[0],
                     et_list[1],
                     et_list[2],
@@ -322,19 +310,18 @@ class JaxaEarthApiDialog(QDialog):
                     et_list[4],
                     et_list[5]
                 )
-            else:
-                min_datetime =  QDateTime(
+            )
+
+            self.endDateEdit.setMaximumDateTime(
+                QDateTime(
                     et_list[0],
                     et_list[1],
                     et_list[2],
                     et_list[3],
                     et_list[4],
-                    et_list[5],
-                    # QTimeZone(QByteArray(b"UTC"))
+                    et_list[5]
                 )
-
-            self.startDateEdit.setMaximumDateTime(min_datetime)
-            self.endDateEdit.setMaximumDateTime(min_datetime)
+            )
 
     def load_dataset(self):
         # 1年以上の期間があれば、もう一方のQDateTimeEditの入力値を制限する
