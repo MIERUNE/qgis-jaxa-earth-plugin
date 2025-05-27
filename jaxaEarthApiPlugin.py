@@ -15,11 +15,11 @@
 import os
 
 # QGIS-API
-from PyQt5.QtCore import QSettings, QTranslator, QCoreApplication
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
 from qgis.core import *
 from qgis.gui import *
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
+from qgis.PyQt.QtGui import *
+from qgis.PyQt.QtWidgets import *
 
 from .jaxaEarthApiDialog import JaxaEarthApiDialog
 

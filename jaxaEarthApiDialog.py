@@ -20,9 +20,8 @@ import requests
 
 # QGIS-API
 from qgis.PyQt import uic
-from PyQt5.QtCore import pyqtSignal, QDateTime
-
-from PyQt5.QtWidgets import QMessageBox, QDialog
+from qgis.PyQt.QtCore import pyqtSignal, QDateTime
+from qgis.PyQt.QtWidgets import QMessageBox, QDialog
 from qgis.core import QgsProject, QgsDateTimeRange
 
 from qgis.utils import iface
