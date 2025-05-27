@@ -220,7 +220,7 @@ class JaxaEarthApiDialog(QDialog):
         for band in dataset_info.get("bands", []):
             self.bandCombobox.addItem(band, band)
 
-        current_time = datetime.datetime.now()
+        current_time = datetime.datetime.now(datetime.timezone.utc)
         ct_list = [
             current_time.year,
             current_time.month,
@@ -282,7 +282,7 @@ class JaxaEarthApiDialog(QDialog):
                 st_list[3],
                 st_list[4],
                 st_list[5],
-                QTimeZone(QByteArray(b"UTC"))
+                # QTimeZone(QByteArray(b"UTC"))
             )
             max_datetime = QDateTime(
                 ct_list[0],
@@ -291,7 +291,7 @@ class JaxaEarthApiDialog(QDialog):
                 ct_list[3],
                 ct_list[4],
                 ct_list[5],
-                QTimeZone(QByteArray(b"UTC"))
+                # QTimeZone(QByteArray(b"UTC"))
             )
 
         self.startDateEdit.setMinimumDateTime(min_datetime)
@@ -330,7 +330,7 @@ class JaxaEarthApiDialog(QDialog):
                     et_list[3],
                     et_list[4],
                     et_list[5],
-                    QTimeZone(QByteArray(b"UTC"))
+                    # QTimeZone(QByteArray(b"UTC"))
                 )
 
             self.startDateEdit.setMaximumDateTime(min_datetime)
