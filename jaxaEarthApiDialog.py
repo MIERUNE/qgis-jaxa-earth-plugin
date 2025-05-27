@@ -273,7 +273,7 @@ class JaxaEarthApiDialog(QDialog):
                     ct_list[2],
                     ct_list[3],
                     ct_list[4],
-                    ct_list[5],
+                    ct_list[5]
                 )
             )
 
@@ -284,7 +284,7 @@ class JaxaEarthApiDialog(QDialog):
                     ct_list[2],
                     ct_list[3],
                     ct_list[4],
-                    ct_list[5],
+                    ct_list[5]
                 )
             )
 
@@ -308,7 +308,7 @@ class JaxaEarthApiDialog(QDialog):
                     et_list[2],
                     et_list[3],
                     et_list[4],
-                    et_list[5],
+                    et_list[5]
                 )
             )
 
@@ -319,7 +319,7 @@ class JaxaEarthApiDialog(QDialog):
                     et_list[2],
                     et_list[3],
                     et_list[4],
-                    et_list[5],
+                    et_list[5]
                 )
             )
 
