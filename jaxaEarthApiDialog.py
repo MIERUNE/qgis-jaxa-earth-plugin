@@ -20,9 +20,8 @@ import requests
 
 # QGIS-API
 from qgis.PyQt import uic
-from PyQt5.QtCore import pyqtSignal, QDateTime
-
-from PyQt5.QtWidgets import QMessageBox, QDialog
+from qgis.PyQt.QtCore import pyqtSignal, QDateTime, QDate
+from qgis.PyQt.QtWidgets import QMessageBox, QDialog
 from qgis.core import QgsProject, QgsDateTimeRange
 
 from qgis.utils import iface
@@ -183,15 +182,20 @@ class JaxaEarthApiDialog(QDialog):
         )
 
         # tooltips
-        self.loadButton.setToolTip(self.tr("Load selected data to map canvas",None))
-        self.detailsButton.setToolTip(self.tr("Check dataset details in Jaxa earth website",None))
-        self.helpButton.setToolTip(self.tr("Further explanations on Github page",None))
-        extent_tooltip = self.tr("""Set target extent as:<br>
+        self.loadButton.setToolTip(self.tr("Load selected data to map canvas", None))
+        self.detailsButton.setToolTip(
+            self.tr("Check dataset details in Jaxa earth website", None)
+        )
+        self.helpButton.setToolTip(self.tr("Further explanations on Github page", None))
+        extent_tooltip = self.tr(
+            """Set target extent as:<br>
             - Layer: target layer extent<br>
             - Layout Map: target layout map extent<br>
             - Bookmark: extent saved on bookmark<br>
             - Map Canvas Extent: current map canvas<br>
-            - Draw on canvas: draw customize extent on map canvas""",None)
+            - Draw on canvas: draw customize extent on map canvas""",
+            None,
+        )
         self.ui.mExtentGroupBox.setToolTip(extent_tooltip)
 
     def on_dataset_changed(self):
@@ -254,38 +258,24 @@ class JaxaEarthApiDialog(QDialog):
             interval_start_time_obj.second,
         ]
 
-        self.startDateEdit.setMinimumDateTime(
-            QDateTime(
-                st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5]
-            )
-        )
+        self.startDateEdit.setMinimumDate(QDate(st_list[0], st_list[1], st_list[2]))
 
-        self.endDateEdit.setMinimumDateTime(
-            QDateTime(
-                st_list[0], st_list[1], st_list[2], st_list[3], st_list[4], st_list[5]
-            )
-        )
+        self.endDateEdit.setMinimumDate(QDate(st_list[0], st_list[1], st_list[2]))
 
         if interval_end_time is None:
-            self.startDateEdit.setMaximumDateTime(
-                QDateTime(
+            self.startDateEdit.setMaximumDate(
+                QDate(
                     ct_list[0],
                     ct_list[1],
                     ct_list[2],
-                    ct_list[3],
-                    ct_list[4],
-                    ct_list[5],
                 )
             )
 
-            self.endDateEdit.setMaximumDateTime(
-                QDateTime(
+            self.endDateEdit.setMaximumDate(
+                QDate(
                     ct_list[0],
                     ct_list[1],
                     ct_list[2],
-                    ct_list[3],
-                    ct_list[4],
-                    ct_list[5],
                 )
             )
 
@@ -302,25 +292,19 @@ class JaxaEarthApiDialog(QDialog):
                 interval_end_time_obj.second,
             ]
 
-            self.startDateEdit.setMaximumDateTime(
-                QDateTime(
+            self.startDateEdit.setMaximumDate(
+                QDate(
                     et_list[0],
                     et_list[1],
                     et_list[2],
-                    et_list[3],
-                    et_list[4],
-                    et_list[5],
                 )
             )
 
-            self.endDateEdit.setMaximumDateTime(
-                QDateTime(
+            self.endDateEdit.setMaximumDate(
+                QDate(
                     et_list[0],
                     et_list[1],
                     et_list[2],
-                    et_list[3],
-                    et_list[4],
-                    et_list[5],
                 )
             )
 
@@ -381,12 +365,12 @@ class JaxaEarthApiDialog(QDialog):
             return
 
         if data_count > 0:
-            if QMessageBox.No == QMessageBox.question(
+            if QMessageBox.StandardButton.No == QMessageBox.question(
                 None,
                 "Check",
                 f"{data_count} features found.\nLoad it?",
-                QMessageBox.Yes,
-                QMessageBox.No,
+                QMessageBox.StandardButton.Yes,
+                QMessageBox.StandardButton.No,
             ):
                 return
 
