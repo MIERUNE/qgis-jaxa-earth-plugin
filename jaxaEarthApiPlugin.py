@@ -79,7 +79,7 @@ class JaxaEarthApiPlugin:
             text="JAXA Earth API Plugin",
             callback=self.show_window,
             parent=self.win,
-            add_to_plugin_toolbar= True,
+            add_to_plugin_toolbar=True,
         )
 
         self.dialog = JaxaEarthApiDialog()
@@ -88,6 +88,6 @@ class JaxaEarthApiPlugin:
         for action in self.actions:
             self.iface.removePluginMenu(PLUGIN_NAME, action)
             self.iface.removeToolBarIcon(action)
-            
+
     def show_window(self):
         self.dialog.show()
