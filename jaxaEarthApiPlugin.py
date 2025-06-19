@@ -32,8 +32,6 @@ class JaxaEarthApiPlugin:
         self.actions = []
         self.icon_path = os.path.join(self.plugin_dir, "imgs", "icon.png")
         self.menu = PLUGIN_NAME
-        self.toolbar = self.iface.addToolBar(PLUGIN_NAME)
-        self.toolbar.setObjectName(PLUGIN_NAME)
         self.dialog = None
         self.action = None
         # initialize locale
@@ -54,7 +52,7 @@ class JaxaEarthApiPlugin:
         callback,
         enabled_flag=True,
         add_to_menu=True,
-        add_to_toolbar=True,
+        add_to_plugin_toolbar=True,
         status_tip=None,
         whats_this=None,
         parent=None,
@@ -67,8 +65,8 @@ class JaxaEarthApiPlugin:
             action.setStatusTip(status_tip)
         if whats_this is not None:
             action.setWhatsThis(whats_this)
-        if add_to_toolbar:
-            self.toolbar.addAction(action)
+        if add_to_plugin_toolbar:
+            self.iface.addToolBarIcon(action)
         if add_to_menu:
             self.iface.addPluginToMenu(self.menu, action)
         self.actions.append(action)
@@ -81,16 +79,15 @@ class JaxaEarthApiPlugin:
             text="JAXA Earth API Plugin",
             callback=self.show_window,
             parent=self.win,
+            add_to_plugin_toolbar=True,
         )
 
         self.dialog = JaxaEarthApiDialog()
 
     def unload(self):
-        self.iface.removePluginMenu(PLUGIN_NAME, self.action)
-        self.iface.removeToolBarIcon(self.action)
-        self.action = None
-
-        del self.toolbar
+        for action in self.actions:
+            self.iface.removePluginMenu(PLUGIN_NAME, action)
+            self.iface.removeToolBarIcon(action)
 
     def show_window(self):
         self.dialog.show()
