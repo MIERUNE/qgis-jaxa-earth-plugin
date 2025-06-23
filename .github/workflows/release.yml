@@ -19,7 +19,7 @@ jobs:
             # metadata.txtにバージョン情報を書き込み
             - name: metadata
               run: |
-                  sed -e "s/version=0.0.0/version=${{ github.event.release.tag_name }}/g" ./metadata.old.txt > ./metadata.txt
+                  sed -e "s/version={{PLUGIN_VERSION}}/version=${{ github.event.release.tag_name }}/g" ./metadata.old.txt > ./metadata.txt
                   rm ./metadata.old.txt
             - name: pull submodules
               run: |
