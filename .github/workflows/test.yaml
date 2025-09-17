@@ -1,5 +1,7 @@
 name: Test plugin
-
+permissions:
+  contents: read
+  
 on:
   pull_request:
     branches:
