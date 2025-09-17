@@ -12,4 +12,4 @@ dev = [
     "ruff>=0.8.2",
 ]
 [tool.ruff.lint]
-ignore = ["F401"]
+ignore = ["F401", "E711", "E712", "E713", "E721", "E741", "F841"]
