@@ -1,14 +1,14 @@
-#----------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------
 # Load module
-#----------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------
 import numpy as np
 from PIL import Image
 
-#----------------------------------------------------------------------------------------
-# apply_palette
-#----------------------------------------------------------------------------------------
-def apply_palette(img_in,color_map_in):
 
+# ----------------------------------------------------------------------------------------
+# apply_palette
+# ----------------------------------------------------------------------------------------
+def apply_palette(img_in, color_map_in):
     # Change dimension (3d to 2d)
     img_tmp = img_in.reshape(img_in.shape[0:2])
 
@@ -25,21 +25,21 @@ def apply_palette(img_in,color_map_in):
 
     # Add alpha channel
     img_tmp = np.zeros(img_out3.shape[0:2], dtype=np.uint8)
-    img_tmp[np.sum(img_out3,axis=2) > 0] = 255
-    img_out = np.dstack([img_out3,img_tmp])
+    img_tmp[np.sum(img_out3, axis=2) > 0] = 255
+    img_out = np.dstack([img_out3, img_tmp])
 
     # Showing image (for test)
-    #import matplotlib.pyplot as plt
-    #plt.imshow(img_out)
-    #plt.show()
+    # import matplotlib.pyplot as plt
+    # plt.imshow(img_out)
+    # plt.show()
 
     # Output
     return img_out
 
-#----------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------
 # conv_cmap
-#----------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------
 def conv_cmap(cmap_in):
-    
-    cmap_out = list(np.array(cmap_in).reshape([3,-1]).T.flatten())
+    cmap_out = list(np.array(cmap_in).reshape([3, -1]).T.flatten())
     return cmap_out

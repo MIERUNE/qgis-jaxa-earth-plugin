@@ -3,20 +3,18 @@
 # ----------------------------------------------------------------------------------------
 import numpy as np
 
+
 # ----------------------------------------------------------------------------------------
 # dn2physical : Convert digital number image to physical value image
 # ----------------------------------------------------------------------------------------
 def dn2physical(img_in, r_params, roles, photo_interp):
-
     # roles : data (float)
     if (roles == "data") and (photo_interp == 1):
-
         # Get parameters
         slope, offset, dn_min, dn_max, dn_nodata, dn_err = get_params(r_params)
 
         # Apply parameters
-        img_out = apply_params(img_in, slope, offset,
-                               dn_min, dn_max, dn_nodata, dn_err)
+        img_out = apply_params(img_in, slope, offset, dn_min, dn_max, dn_nodata, dn_err)
 
     # roles : visual, data_mask, and so on
     else:
@@ -25,16 +23,16 @@ def dn2physical(img_in, r_params, roles, photo_interp):
     # Output
     return img_out
 
+
 # ----------------------------------------------------------------------------------------
 # apply_params
 # ----------------------------------------------------------------------------------------
 def apply_params(img_in, slope, offset, dn_min, dn_max, dn_nodata, dn_err):
-
     # Datatype conversion
     img_out = img_in.astype(dtype="float32")
 
     # Apply slope, offset
-    img_out = img_out*slope + offset
+    img_out = img_out * slope + offset
 
     # In case of beyond min,max
     if (dn_min != None) & (dn_max != None):
@@ -49,11 +47,11 @@ def apply_params(img_in, slope, offset, dn_min, dn_max, dn_nodata, dn_err):
     # Output
     return img_out
 
+
 # ----------------------------------------------------------------------------------------
 # get_params
 # ----------------------------------------------------------------------------------------
 def get_params(params):
-
     # (1) slope
     if "slope" in params["dn2value"]:
         slope = params["dn2value"]["slope"]
