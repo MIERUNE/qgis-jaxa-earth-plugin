@@ -2,7 +2,6 @@
 # Load module
 # --------------------------------------------------------------------------------
 import numpy as np
-import matplotlib as mpl
 import warnings
 from ....params import ColorMap
 
@@ -117,6 +116,9 @@ class ColorInfo:
     # get_lin_seg_cmap : get linear segmented colormap
     # ----------------------------------------------------------------------------
     def get_lin_seg_cmap(self):
+        # matplotlib is only required for standalone (non-QGIS) preview helpers
+        import matplotlib as mpl
+
         # Initialization
         cmap = None
         norm = None

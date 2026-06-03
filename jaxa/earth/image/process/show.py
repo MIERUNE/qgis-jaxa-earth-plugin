@@ -3,14 +3,16 @@
 # ----------------------------------------------------------------------------------------
 import numpy as np
 import warnings
-import matplotlib.pyplot as plt
-import mpl_toolkits.axes_grid1
 
 
 # ----------------------------------------------------------------------------------------
 # show : Visualize image
 # ----------------------------------------------------------------------------------------
 def show_image(img, latlim, lonlim, title, cinfo, proj_params):
+    # matplotlib is only required for this standalone (non-QGIS) preview
+    import matplotlib.pyplot as plt
+    import mpl_toolkits.axes_grid1
+
     # Set color map information
     cmap, norm = cinfo.get_lin_seg_cmap()
 
@@ -240,6 +242,9 @@ def show_timeseries(timeseries, title, xlabel, ylabel, ylim):
 # show_timeseries_single : Visualize single band timeseries
 # ----------------------------------------------------------------------------------------
 def show_timeseries_single(timeseries, title, xlabel, ylabel, ylim):
+    # matplotlib is only required for this standalone (non-QGIS) preview
+    import matplotlib.pyplot as plt
+
     # Set figure,title,tick interval
     fig = plt.figure()
     ax = fig.add_axes((0.1, 0.2, 0.8, 0.7))

@@ -1,8 +1,10 @@
 # ----------------------------------------------------------------------------------------
 # Load module
 # ----------------------------------------------------------------------------------------
+import json
+
 import numpy as np
-from PIL import Image, ImageDraw
+from osgeo import gdal, ogr, osr
 
 
 # ----------------------------------------------------------------------------------------
@@ -11,127 +13,54 @@ from PIL import Image, ImageDraw
 def geoj2raster(geoj, raster):
     # Get img size
     img_size_2d = raster.img.shape[1:3]
-
-    # No processing if type is point
-    type = geoj["geometry"]["type"]
+    height, width = img_size_2d
 
     # Showing progress
     print(" - ROI mask : ", end="")
 
-    # Get polygon
-    polym = geoj["geometry"]["coordinates"]
+    # Build OGR layer in memory holding the ROI geometry
+    srs = osr.SpatialReference()
+    srs.ImportFromEPSG(4326)
 
-    # Convert multiple to single polygon
-    polys = multi2single(polym)
+    ogr_drv = ogr.GetDriverByName("Memory")
+    src_ds = ogr_drv.CreateDataSource("roi")
 
-    # Initialize image
-    img = Image.new("L", img_size_2d[::-1], 0)
-    draw = ImageDraw.Draw(img)
+    geom = ogr.CreateGeometryFromJson(json.dumps(geoj["geometry"]))
+    layer = src_ds.CreateLayer("roi", srs, geom.GetGeometryType())
 
-    # Aquire polygon data
-    for i in range(len(polys)):
-        # Convert coordinate's lat,lon to pixel value
-        polypix = lonlat2pix(polys[i], img_size_2d, raster.latlim[0], raster.lonlim[0])
+    feat = ogr.Feature(layer.GetLayerDefn())
+    feat.SetGeometry(geom)
+    layer.CreateFeature(feat)
+    feat = None
 
-        # Draw point () and append
-        if (type == "Point") | (type == "MultiPoint"):
-            draw.point(polypix, fill=1)
+    # Build in-memory target raster matching the source raster's bbox
+    lat_min, lat_max = raster.latlim[0]
+    lon_min, lon_max = raster.lonlim[0]
 
-        # Draw line (Convert line's lat,lon to pixel value) and append
-        elif (type == "LineString") | (type == "MultiLineString"):
-            draw.line(polypix, fill=1, width=1)
+    gdal_drv = gdal.GetDriverByName("MEM")
+    target = gdal_drv.Create("", width, height, 1, gdal.GDT_Byte)
+    target.SetGeoTransform(
+        [
+            lon_min,
+            (lon_max - lon_min) / width,
+            0,
+            lat_max,
+            0,
+            -(lat_max - lat_min) / height,
+        ]
+    )
+    target.SetProjection(srs.ExportToWkt())
 
-        # Draw polygon (Convert polygon's lat,lon to pixel value) and append
-        elif (type == "Polygon") | (type == "MultiPolygon"):
-            draw.polygon(polypix, outline=1, fill=1)
+    # Rasterize: GDAL handles Point/Line/Polygon and Multi* + polygon holes natively
+    gdal.RasterizeLayer(target, [1], layer, burn_values=[1])
 
-    # Mask image
-    mask = np.array(img)
+    mask = target.GetRasterBand(1).ReadAsArray()
 
-    # Delete holes and change to boolean
-    index = mask % 2 == 1
-
-    # Showing image (for test)
-    # import matplotlib.pyplot as plt
-    # plt.imshow(index)
-    # plt.show()
-
-    # Reshape img size
-    index = np.reshape(index, [1, img_size_2d[0], img_size_2d[1], 1])
+    # Reshape to (1, H, W, 1) boolean
+    index = (mask == 1).reshape(1, height, width, 1)
 
     # Showing progress
     print("masked")
 
     # Output
     return index
-
-
-# ----------------------------------------------------------------------------------------
-# multi2single : Flatten polygon list
-# ----------------------------------------------------------------------------------------
-def multi2single(poly_in):
-    # Get max depth
-    ld = depth(poly_in)
-
-    # Change list shape to 3 depend on depth
-    if ld == 4:
-        poly_out = [poly_in[i][0] for i in range(len(poly_in))]
-    elif ld == 3:
-        poly_out = poly_in
-    elif ld == 2:
-        poly_out = [poly_in]
-    elif ld == 1:
-        poly_out = [[poly_in]]
-
-    # Output
-    return poly_out
-
-
-# ----------------------------------------------------------------------------------------
-# lonlat2pix : Convert lat,lon to pixels
-# ----------------------------------------------------------------------------------------
-def lonlat2pix(poly, imgsize, latlim, lonlim):
-    # Get polygon's lat,lon
-    lon = np.array(poly)[:, 0]
-    lat = np.array(poly)[:, 1]
-
-    # Degree per pixel
-    dpp = np.array([lonlim[1] - lonlim[0], latlim[1] - latlim[0]]) / imgsize[::-1]
-
-    # Calc pixel position (lat : x, lon : y)
-    pix_x = np.array(((latlim[1] - dpp[1] / 2) - lat) / dpp[1], dtype="int")
-    pix_y = np.array((lon - (lonlim[0] + dpp[0] / 2)) / dpp[0], dtype="int")
-
-    # Check Difference (to remove same pixel position's data)
-    diff_xy = np.append(1, abs(pix_x[1:] - pix_x[:-1]) + abs(pix_y[1:] - pix_y[:-1]))
-    idx_ok = diff_xy != 0
-
-    # Update pix
-    pix_x = pix_x[idx_ok]
-    pix_y = pix_y[idx_ok]
-
-    # If only one point
-    if len(pix_x) == 1:
-        pix_x = np.append(pix_x, pix_x)
-        pix_y = np.append(pix_y, pix_y)
-
-    # Convert to tuple
-    pix = []
-    for i in range(len(pix_x)):
-        pix.append((pix_y[i], pix_x[i]))
-
-    # Output
-    return pix
-
-
-# ----------------------------------------------------------------------------------------
-# depth : Calc list's depth
-# ----------------------------------------------------------------------------------------
-def depth(mylist):
-    if not mylist:
-        return 0
-    else:
-        if isinstance(mylist, list):
-            return 1 + max(depth(i) for i in mylist)
-        else:
-            return 0
