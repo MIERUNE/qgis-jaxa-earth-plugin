@@ -15,12 +15,12 @@ def get_catalog() -> dict:
     """
     catalog = {}
 
-    res = requests.get(STAC_CATALOG_URL)
+    res = requests.get(STAC_CATALOG_URL, timeout=30)
     res_json = res.json()
 
     children = list(filter(lambda d: d["rel"] == "child", res_json.get("links", [])))
     for child in children:
-        res_child = requests.get(child["href"])
+        res_child = requests.get(child["href"], timeout=30)
         res_child_json = res_child.json()
 
         dataset_id = res_child_json["id"]
