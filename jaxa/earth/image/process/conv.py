@@ -3,7 +3,6 @@
 # ----------------------------------------------------------------------------------------
 import json
 
-import numpy as np
 from osgeo import gdal, ogr, osr
 
 
@@ -58,6 +57,13 @@ def geoj2raster(geoj, raster):
 
     # Reshape to (1, H, W, 1) boolean
     index = (mask == 1).reshape(1, height, width, 1)
+
+    # Release GDAL/OGR in-memory references explicitly
+    # (important in long-running processes like QGIS to avoid memory retention)
+    geom = None
+    layer = None
+    src_ds = None
+    target = None
 
     # Showing progress
     print("masked")
