@@ -51,4 +51,4 @@ jobs:
                     "https://plugins.qgis.org/plugins/api/${{env.PLUGIN_NAME}}/version/add/" \
                     -H "Authorization: Bearer ${{ secrets.QGIS_PLUGIN_TOKEN }}" \
                     -F "package=@${{env.PLUGIN_NAME}}.zip" \
-                    --fail
+                    --fail -sS
