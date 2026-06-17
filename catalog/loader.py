@@ -2,6 +2,9 @@ import requests
 import json
 
 STAC_CATALOG_URL = "https://data.earth.jaxa.jp/stac/cog/v1/catalog.json"
+CONNECT_TIMEOUT = 5
+READ_TIMEOUT = 30
+STAC_CATALOG_TIMEOUT = (CONNECT_TIMEOUT, READ_TIMEOUT)
 
 
 def get_catalog() -> dict:
@@ -15,12 +18,12 @@ def get_catalog() -> dict:
     """
     catalog = {}
 
-    res = requests.get(STAC_CATALOG_URL)
+    res = requests.get(STAC_CATALOG_URL, timeout=STAC_CATALOG_TIMEOUT)
     res_json = res.json()
 
     children = list(filter(lambda d: d["rel"] == "child", res_json.get("links", [])))
     for child in children:
-        res_child = requests.get(child["href"])
+        res_child = requests.get(child["href"], timeout=STAC_CATALOG_TIMEOUT)
         res_child_json = res_child.json()
 
         dataset_id = res_child_json["id"]
